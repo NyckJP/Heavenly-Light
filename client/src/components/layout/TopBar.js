@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
 
 const TopBar = ({ user }) => {
+  const [renderNav, setRenderNav] = useState(false)
+
   const unauthenticatedListItems = [
     <li className="nav-link" key="products">
       <Link>
@@ -40,18 +42,48 @@ const TopBar = ({ user }) => {
     </li>,
   ];
 
-  return (
-    <div className="top-bar sticky">
-      <div className="hide-on-large-screens">
-        <Link>
-          <i className="fa-solid fa-bars" />
-        </Link>
+  const dropDownMenuItems = [
+    <li key="products">
+      <Link>
+        Products
+      </Link>
+    </li>,
+    <li key="about">
+      <Link>
+        About
+      </Link>
+    </li>,
+    <li key="contact">
+      <Link>
+        Contact
+      </Link>
+    </li>
+  ]
+
+  let dropDownNav
+  if(renderNav) {
+    dropDownNav = (
+      <div className="drop-down-menu hide-on-large-screens">
+        <ul className="menu menu-links">
+          {dropDownMenuItems}
+        </ul>
       </div>
-      <ul className="menu">
-        <li className="menu-text">Heavenly Light</li>
-      </ul>
-      <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
-    </div>
+    )
+  }
+
+  return (
+    <>
+      {dropDownNav}
+      <div className="top-bar sticky">
+        <div className="hide-on-large-screens">
+          <i className="fa-solid fa-bars menu-bars" onClick={() => {setRenderNav(!renderNav)}}/>
+        </div>
+        <ul className="menu">
+          <li className="menu-text">Heavenly Light</li>
+        </ul>
+        <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
+      </div>
+    </>
   );
 };
 

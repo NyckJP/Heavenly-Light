@@ -28,7 +28,7 @@ h2 {
 }
 
 h2 {
-  padding-top: 60px;
+  padding-top: 100px;
 }
 
 a {
@@ -37,6 +37,23 @@ a {
 
 .top-bar {
   box-shadow: 3px 3px 5px rgba(0, 0, 0, .1);
+}
+
+.drop-down-menu {
+  position: fixed;
+  margin-top: 55px;
+  width: 100%;
+  background-color: white;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, .1);
+}
+
+.menu-links {
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu-bars {
+  padding: .7rem 1rem;
 }
 
 @media (min-width: 500px){
