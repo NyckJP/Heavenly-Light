@@ -12,3 +12,58 @@
   -moz-tab-size: 4;
   tab-size: 4;
 }
+
+h2 {
+  margin-bottom: 2000px;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+h2 {
+  padding-top: 100px;
+}
+
+a {
+  color: black;
+}
+
+.top-bar {
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, .1);
+}
+
+.drop-down-menu {
+  position: fixed;
+  margin-top: 55px;
+  width: 100%;
+  background-color: white;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, .1);
+}
+
+.menu-links {
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu-bars {
+  padding: .7rem 1rem;
+}
+
+@media (min-width: 500px){
+  .hide-on-large-screens{
+    display: none;
+  }
+}
+
+@media (max-width: 499px) {
+  .nav-link {
+    display: none;
+  }
+}
