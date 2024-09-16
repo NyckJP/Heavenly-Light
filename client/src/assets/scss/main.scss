@@ -1,7 +1,8 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
-// place global css here
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 *,
 *::before,
 *::after {
@@ -13,8 +14,26 @@
   tab-size: 4;
 }
 
-h2 {
-  margin-bottom: 2000px;
+html {
+  scroll-behavior: smooth;
+}
+
+body, h1, h3, p {
+  font-family: Lato, regular;
+}
+
+.hero-section {
+  padding-top: 400px;
+  padding-bottom: 400px;
+  background-image: url(../images/nevada-sun.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  //choose between top-center or top-right -290px in a media query
+  background-position: top center;
+  h1, h3 {
+    // font-family: Lato, regular;
+    margin-left: 5rem;
+  }
 }
 
 .content {
@@ -27,15 +46,12 @@ h2 {
   width: 100%;
 }
 
-h2 {
-  padding-top: 100px;
-}
-
 a {
   color: black;
 }
 
 .top-bar {
+  //background: none;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, .1);
 }
 
@@ -56,6 +72,11 @@ a {
   padding: .7rem 1rem;
 }
 
+.products {
+  padding-top: 400px;
+  padding-bottom: 400px;
+}
+
 @media (min-width: 500px){
   .hide-on-large-screens{
     display: none;
@@ -65,5 +86,12 @@ a {
 @media (max-width: 499px) {
   .nav-link {
     display: none;
+  }
+
+  .hero-section {
+    h1, h3{
+      margin-left: 0rem;
+    }
+    text-align: center;
   }
 }
