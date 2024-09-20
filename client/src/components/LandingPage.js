@@ -1,4 +1,5 @@
 import React from "react"
+import ProductList from "./ProductList.js"
 
 const LandingPage = () => {
     return (
@@ -7,9 +8,7 @@ const LandingPage = () => {
                 <h1>Heavenly Light T-Shirt Printing</h1>
                 <h3>Check Out Our Designs <a href="#products"><i class="fa-solid fa-arrow-down" /></a></h3>
             </div>
-            <div className="products" id="products">
-                products
-            </div>
+            <ProductList />
         </>
     )
 }
