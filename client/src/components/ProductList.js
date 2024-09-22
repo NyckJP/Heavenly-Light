@@ -25,9 +25,12 @@ const ProductList = () => {
     })
 
     return (
-        <div className="products" id="products">
+        <div className="grid-container products" id="products">
             <h1>{category}</h1>
-            {productList}
+            <hr />
+            <div className="grid-x grid-margin-x small-up-2 medium-up-2 large-up-4">
+                {productList}
+            </div>
         </div>
     )
 }
