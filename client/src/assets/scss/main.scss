@@ -18,7 +18,7 @@ html {
   scroll-behavior: smooth;
 }
 
-body, h1, h3, p {
+body, h1, h3, h6, p {
   font-family: Lato, regular;
 }
 
@@ -31,7 +31,6 @@ body, h1, h3, p {
   //choose between top-center or top-right -290px in a media query
   background-position: top center;
   h1, h3 {
-    // font-family: Lato, regular;
     margin-left: 5rem;
   }
 }
@@ -75,6 +74,22 @@ a {
 .products {
   padding-top: 100px;
   padding-bottom: 400px;
+}
+
+.product-tile {
+  padding: 5px;
+  text-align: center;
+  img {
+    border-radius: 1rem;
+  }
+  transition: all .3s;
+  input {
+    max-width: 100%;
+  }
+}
+
+.product-tile:hover {
+  transform: scale(1.15);
 }
 
 @media (min-width: 500px){

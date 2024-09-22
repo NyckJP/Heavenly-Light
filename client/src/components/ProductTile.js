@@ -2,7 +2,7 @@ import React from "react";
 
 const ProductTile = (props) => {
     return (
-        <div className="cell">
+        <div className="cell product-tile">
             {/* <div>
                 image: {props.imageUrl}
             </div> */}
@@ -13,6 +13,7 @@ const ProductTile = (props) => {
             <h6>
                 ${props.price}
             </h6>
+            <input className="button" defaultValue="Add to Basket"/> {/* Change "defaultValue" to "value" when adding "onChange" */}
         </div>
     )
 }

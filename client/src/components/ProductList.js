@@ -28,7 +28,7 @@ const ProductList = () => {
         <div className="grid-container products" id="products">
             <h1>{category}</h1>
             <hr />
-            <div className="grid-x grid-margin-x small-up-2 medium-up-2 large-up-4">
+            <div className="grid-x grid-margin-x grid-margin-y small-up-2 medium-up-2 large-up-4">
                 {productList}
             </div>
         </div>
