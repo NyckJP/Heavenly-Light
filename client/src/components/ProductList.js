@@ -28,7 +28,7 @@ const ProductList = () => {
     }, [category])
 
     const productList = products.map(product => {
-        return <ProductTile imageUrl={product.imageUrl} name={product.name} price={product.price} />
+        return <ProductTile id={product.id} imageUrl={product.imageUrl} name={product.name} price={product.price} />
     })
 
     return (
