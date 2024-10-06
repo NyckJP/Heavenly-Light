@@ -81,7 +81,7 @@ const TopBar = ({ user }) => {
         <ul className="menu">
           <li className="menu-text">Heavenly Light</li>
         </ul>
-        <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
+         <ul className="menu">{unauthenticatedListItems}</ul> {/*user ? authenticatedListItems :*/}
       </div>
     </>
   );
