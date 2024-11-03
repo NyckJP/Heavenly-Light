@@ -7,7 +7,7 @@ const TopBar = ({ user }) => {
 
   const unauthenticatedListItems = [
     <li className="nav-link" key="products">
-      <Link>
+      <Link to="/">
         Products
       </Link>
     </li>,
@@ -44,7 +44,7 @@ const TopBar = ({ user }) => {
 
   const dropDownMenuItems = [
     <li key="products">
-      <Link>
+      <Link to="/#products">
         Products
       </Link>
     </li>,
