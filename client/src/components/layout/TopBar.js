@@ -63,7 +63,7 @@ const TopBar = ({ user }) => {
   let dropDownNav
   if(renderNav) {
     dropDownNav = (
-      <div className="drop-down-menu hide-on-large-screens">
+      <div className="drop-down-menu hide-on-large-screens sticky">
         <ul className="menu menu-links">
           {dropDownMenuItems}
         </ul>
