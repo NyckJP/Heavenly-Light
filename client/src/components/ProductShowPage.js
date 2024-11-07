@@ -4,6 +4,7 @@ const ProductShowPage = (props) => {
     const [product, setProduct] = useState({})
     const [variationList, setVariationList] = useState([{color_description: "none"}])
     const [renderedVariation, setRenderedVariation] = useState(0)
+    const [cartItem, setCartItem] = useState({ color_description: "none", size: "S", quantity: "1"})
 
     const productId = props.match.params.id
 
@@ -11,6 +12,11 @@ const ProductShowPage = (props) => {
         if(renderedVariation == 0 && direction == -1 || renderedVariation == variationList.length-1 && direction == 1)
             return
         setRenderedVariation(renderedVariation + direction)
+        setCartItem({...cartItem, color_description: variationList[renderedVariation + direction].color_description})
+    }
+
+    const handleInputChange = event => {
+        setCartItem({...cartItem, [event.currentTarget.name]: event.currentTarget.value})
     }
 
     const collectVariations = (allVariations) => {
@@ -78,7 +84,7 @@ const ProductShowPage = (props) => {
                 <form>
                     <label>
                         Size:
-                        <select>
+                        <select name="size" onChange={handleInputChange}>
                             <option value="S">S</option>
                             <option value="M">M</option>
                             <option value="L">L</option>
@@ -87,7 +93,7 @@ const ProductShowPage = (props) => {
                     </label>
                     <label>
                         Quantity:
-                        <input type="number" min="1" max="5" />
+                        <input type="number" min="1" max="5" name="quantity" value={cartItem.quantity} onChange={handleInputChange}/>
                     </label>
                     <input className="button" defaultValue="Add to Basket"/>
                 </form>
