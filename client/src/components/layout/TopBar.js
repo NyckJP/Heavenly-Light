@@ -7,7 +7,7 @@ const TopBar = ({ user }) => {
 
   const unauthenticatedListItems = [
     <li className="nav-link" key="products">
-      <Link>
+      <Link to="/">
         Products
       </Link>
     </li>,
@@ -44,7 +44,7 @@ const TopBar = ({ user }) => {
 
   const dropDownMenuItems = [
     <li key="products">
-      <Link>
+      <Link to="/#products">
         Products
       </Link>
     </li>,
@@ -63,7 +63,7 @@ const TopBar = ({ user }) => {
   let dropDownNav
   if(renderNav) {
     dropDownNav = (
-      <div className="drop-down-menu hide-on-large-screens">
+      <div className="drop-down-menu hide-on-large-screens sticky">
         <ul className="menu menu-links">
           {dropDownMenuItems}
         </ul>
@@ -81,7 +81,7 @@ const TopBar = ({ user }) => {
         <ul className="menu">
           <li className="menu-text">Heavenly Light</li>
         </ul>
-        <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
+         <ul className="menu">{unauthenticatedListItems}</ul> {/*user ? authenticatedListItems :*/}
       </div>
     </>
   );
