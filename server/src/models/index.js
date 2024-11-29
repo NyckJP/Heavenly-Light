@@ -2,5 +2,6 @@
 const User = require("./User.js")
 const Product = require("./Product.js")
 const Variation = require("./Variation.js")
+const BasketItem = require("./BasketItem.js")
 
-module.exports = {User, Product, Variation};
+module.exports = {User, Product, Variation, BasketItem};
