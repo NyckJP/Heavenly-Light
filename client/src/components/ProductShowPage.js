@@ -40,6 +40,20 @@ const ProductShowPage = (props) => {
         return variations
     }
 
+    const saveToBasket = async () => {
+        try {
+            const response = await fetch('/api/v1/baskets', {
+                method: "post",
+                headers: new Headers({ 'Content-type': 'application/json' }),
+                body: JSON.stringify(cartItem)
+            })
+            const parsedResponse = await response.json()
+            console.log(parsedResponse)
+        } catch (error) {
+            console.log(`Error in saveToBasket fetch: ${error.message}`)
+        }
+    }
+
     const getProduct = async () => {
         try {
             const response = await fetch(`/api/v1/products/${productId}`)
@@ -57,6 +71,7 @@ const ProductShowPage = (props) => {
             const parsedResponse = await response.json()
             const variations = collectVariations(parsedResponse.variations)
             setVariationList(variations)
+            setCartItem({...cartItem, color_description: variations[0].color_description})
         } catch (error) {
             console.log(`Error in variations fetch: ${error.message}`)
         }
@@ -81,7 +96,7 @@ const ProductShowPage = (props) => {
                     <p>{variationList[renderedVariation].color_description}</p>
                     <p>Description (Details): Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </section>
-                <form>
+                <form onSubmit={saveToBasket}>
                     <label>
                         Size:
                         <select name="size" onChange={handleInputChange}>
@@ -95,7 +110,7 @@ const ProductShowPage = (props) => {
                         Quantity:
                         <input type="number" min="1" max="5" name="quantity" value={cartItem.quantity} onChange={handleInputChange}/>
                     </label>
-                    <input className="button" defaultValue="Add to Basket"/>
+                    <input className="button" type="submit" defaultValue="Add to Basket"/>
                 </form>
             </section>
         </div>

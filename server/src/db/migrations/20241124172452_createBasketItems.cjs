@@ -9,6 +9,7 @@ exports.up = async (knex) => {
     return knex.schema.createTable("basketItems", table => {
         table.bigIncrements("id")
         table.bigInteger("userId").references("users.id")
+        table.string("guestId")
         table.bigInteger("variationId").unsigned().notNullable().references("variations.id")
         table.integer("quantity").notNullable()
         table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())

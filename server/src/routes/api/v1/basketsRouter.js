@@ -1,9 +1,9 @@
 import express from "express"
 import { User, Variation, BasketItem } from "../../../models/index.js"
 
-const basketRouter = new express.Router()
+const basketsRouter = new express.Router()
 
-basketRouter.get("/", async (req, res) => {
+basketsRouter.get("/", async (req, res) => {
     const userId = req.user.id
     let guestId = req.session.guestId
     
@@ -13,7 +13,7 @@ basketRouter.get("/", async (req, res) => {
             const currentUser = await User.query().findById(userId)
             basketItemIds = await currentUser.$relatedQuery("basketItems")
         } else {
-            basketItemIds = await BasketItem.query().where("userId", "=", guestId)
+            basketItemIds = await BasketItem.query().where("guestId", "=", guestId)
         }
         const basket = basketItemIds.forEach(async item => {
             const foundVariation = await Variation.query().findById(item.id)
@@ -26,25 +26,25 @@ basketRouter.get("/", async (req, res) => {
     }
 })
 
-basketRouter.post("/", async (req, res) => {
-    const userId = req.user.id
+basketsRouter.post("/", async (req, res) => {
+    const userId = req.user?.id
     let guestId = req.session.guestId
     const { body } = req // {color_description, size, quantity}
     try {
-        const foundVariant = await Variation.query().where("color_description", "=", body.color_description).andWhere("size", "=", body.size)
-        console.log(foundVariant)
+        const response = await Variation.query().where("color_description", "=", body.color_description).andWhere("size", "=", body.size)
+        const foundVariant = response[0]
         let newBasketItem
         if(userId){
-            newBasketItem = await BasketItem.query().insertAndFetch({ userId: userId, variantId: foundVariant.id, quantity: body.quantity })
+            newBasketItem = await BasketItem.query().insertAndFetch({ userId: userId, variationId: foundVariant.id, quantity: body.quantity })
         } else {
-            newBasketItem = await BasketItem.query().insertAndFetch({ userId: guestId, variantId: foundVariant.id, quantity: body.quantity })
+            newBasketItem = await BasketItem.query().insertAndFetch({ guestId: guestId, variationId: foundVariant.id, quantity: body.quantity })
         }
         console.log(newBasketItem)
-        res.status(201) //see if .json() is necessary
+        res.status(201).json(newBasketItem)
     } catch (error) {
         console.log(error)
         return res.status(500).json({ errors: error })
     }
 })
 
-export default basketRouter
+export default basketsRouter
