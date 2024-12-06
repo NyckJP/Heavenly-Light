@@ -110,7 +110,7 @@ const ProductShowPage = (props) => {
                         Quantity:
                         <input type="number" min="1" max="5" name="quantity" value={cartItem.quantity} onChange={handleInputChange}/>
                     </label>
-                    <input className="button" type="submit" defaultValue="Add to Basket"/>
+                    <input className="button" type="submit" value="Add to Basket"/>
                 </form>
             </section>
         </div>

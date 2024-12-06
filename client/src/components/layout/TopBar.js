@@ -7,7 +7,7 @@ const TopBar = ({ user }) => {
 
   const unauthenticatedListItems = [
     <li className="nav-link" key="products">
-      <Link to="/">
+      <Link to="/#products">
         Products
       </Link>
     </li>,
@@ -22,7 +22,7 @@ const TopBar = ({ user }) => {
       </Link>
     </li>,
     <li key="Basket">
-      <Link>
+      <Link to="/basket">
         <i className="fa-solid fa-basket-shopping" />
       </Link>
     </li>,

@@ -4,7 +4,7 @@ import { User, Variation, BasketItem } from "../../../models/index.js"
 const basketsRouter = new express.Router()
 
 basketsRouter.get("/", async (req, res) => {
-    const userId = req.user.id
+    const userId = req.user?.id
     let guestId = req.session.guestId
     
     try {
@@ -15,11 +15,12 @@ basketsRouter.get("/", async (req, res) => {
         } else {
             basketItemIds = await BasketItem.query().where("guestId", "=", guestId)
         }
-        const basket = basketItemIds.forEach(async item => {
+        const basket = await Promise.all(basketItemIds.map(async item => {
             const foundVariation = await Variation.query().findById(item.id)
-            return { variation: foundVariation, quantity: item.quantity}
-        })
-        res.status(200).json({ basket: basket })
+            return { variation: foundVariation, quantity: item.quantity }
+        }))
+        console.log(basket)
+        res.status(200).json({ basket: await basket })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ errors: error })
