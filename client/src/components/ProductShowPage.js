@@ -5,6 +5,7 @@ const ProductShowPage = (props) => {
     const [variationList, setVariationList] = useState([{color_description: "none"}])
     const [renderedVariation, setRenderedVariation] = useState(0)
     const [cartItem, setCartItem] = useState({ color_description: "none", size: "S", quantity: "1"})
+    const [basketButton, setBasketButton] = useState("Add to Basket")
 
     const productId = props.match.params.id
 
@@ -13,10 +14,12 @@ const ProductShowPage = (props) => {
             return
         setRenderedVariation(renderedVariation + direction)
         setCartItem({...cartItem, color_description: variationList[renderedVariation + direction].color_description})
+        setBasketButton("Add to Basket")
     }
 
     const handleInputChange = event => {
         setCartItem({...cartItem, [event.currentTarget.name]: event.currentTarget.value})
+        setBasketButton("Add to Basket")
     }
 
     const collectVariations = (allVariations) => {
@@ -40,15 +43,19 @@ const ProductShowPage = (props) => {
         return variations
     }
 
-    const saveToBasket = async () => {
+    const saveToBasket = async (event) => {
+        event.preventDefault()
         try {
             const response = await fetch('/api/v1/baskets', {
                 method: "post",
                 headers: new Headers({ 'Content-type': 'application/json' }),
                 body: JSON.stringify(cartItem)
             })
-            const parsedResponse = await response.json()
-            console.log(parsedResponse)
+            if(response.ok){
+                setBasketButton("Item Saved in Basket!")
+            } else {
+                setBasketButton("Save Failed")
+            }
         } catch (error) {
             console.log(`Error in saveToBasket fetch: ${error.message}`)
         }
@@ -110,7 +117,7 @@ const ProductShowPage = (props) => {
                         Quantity:
                         <input type="number" min="1" max="5" name="quantity" value={cartItem.quantity} onChange={handleInputChange}/>
                     </label>
-                    <input className="button" type="submit" value="Add to Basket"/>
+                    <input className="button" type="submit" value={basketButton}/>
                 </form>
             </section>
         </div>
