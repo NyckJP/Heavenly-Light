@@ -7,9 +7,9 @@ const TopBar = ({ user }) => {
 
   const unauthenticatedListItems = [
     <li className="nav-link" key="products">
-      <Link to="/#products">
+      <a href="/#products">
         Products
-      </Link>
+      </a>
     </li>,
     <li className="nav-link" key="about">
       <Link>

@@ -11,8 +11,9 @@ exports.up = async (knex) => {
         table.bigInteger("productId").unsigned().notNullable().index().references("products.id")
         table.string("imageUrl").notNullable();
         table.string("color_description").notNullable()
-        table.string("size").notNullable()
+        table.string("size")
         table.integer("quantity").notNullable()
+        table.decimal("price").notNullable()
         table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
         table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())
     })

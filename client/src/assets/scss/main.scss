@@ -78,6 +78,10 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  a {
+    align-self: end;
+    padding-bottom: .6rem;
+  }
 }
 
 .product-tile {
@@ -158,6 +162,30 @@ input[type="radio"]:checked + label {
       font-size: larger;
     }
   }
+}
+
+.basket-page {
+  margin-top: 5rem;
+}
+
+.basket-item {
+  display: flex;
+  flex-direction: row;
+  img {
+    width: 10rem;
+    padding: .5rem;
+    border-radius: 1rem;
+  }
+  .item-details {
+    width: 35rem;
+  }
+  .quantity-stepper {
+    margin-right: 14rem;
+  }
+}
+
+.subtotal {
+  text-align: right;
 }
 
 @media (min-width: 500px){

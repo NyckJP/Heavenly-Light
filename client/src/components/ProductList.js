@@ -27,8 +27,18 @@ const ProductList = () => {
         getProducts()
     }, [category])
 
+    let key = 0
     const productList = products.map(product => {
-        return <ProductTile id={product.id} imageUrl={product.imageUrl} name={product.name} price={product.price} />
+        key++
+        return (
+            <ProductTile 
+                key={key} 
+                id={product.id} 
+                imageUrl={product.imageUrl} 
+                name={product.name} 
+                price={product.price} 
+            />
+        )
     })
 
     return (
@@ -39,14 +49,14 @@ const ProductList = () => {
                     <input type="radio" id="All" name="filter" onChange={() => setCategory("All Products")}/>
                     <label htmlFor="All" className="category-button">All</label>
 
-                    <input type="radio" id="Shirts" name="filter" onChange={() => setCategory("shirts")}/>
-                    <label htmlFor="Shirts" className="category-button">Shirts</label>
+                    <input type="radio" id="Shirts" name="filter" onChange={() => setCategory("Tops")}/>
+                    <label htmlFor="Shirts" className="category-button">Tops</label>
 
-                    <input type="radio" id="Mugs" name="filter" onChange={() => setCategory("mugs")}/>
+                    <input type="radio" id="Mugs" name="filter" onChange={() => setCategory("Mugs")}/>
                     <label htmlFor="Mugs" className="category-button">Mugs</label>
 
-                    <input type="radio" id="Crochet" name="filter" onChange={() => setCategory("crochet")}/>
-                    <label htmlFor="Crochet" className="category-button">Crochet</label>
+                    <input type="radio" id="Crochet" name="filter" onChange={() => setCategory("Crochets")}/>
+                    <label htmlFor="Crochet" className="category-button">Crochets</label>
                 </div>
             </div>
             <hr />

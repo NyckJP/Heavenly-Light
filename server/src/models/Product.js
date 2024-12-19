@@ -12,8 +12,8 @@ class Product extends Model {
             properties: {
                 name: {type: "string"},
                 imageUrl: {type: "string"},
-                price: {type: ["number", "string"]},
-                category: {type: "string"}
+                category: {type: "string"},
+                price: {type: ["number", "string"]}
             }
         }
     }
@@ -21,7 +21,7 @@ class Product extends Model {
     static get relationMappings() {
         const { Variation } = require("./index.js")
         return {
-            variation: {
+            variations: {
                 relation: Model.HasManyRelation,
                 modelClass: Variation,
                 join: {
