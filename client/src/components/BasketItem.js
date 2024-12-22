@@ -16,9 +16,14 @@ const BasketItem = (props) => {
         }
     }
 
+    const handleDelete = event => {
+        event.preventDefault()
+        props.deleteItem(props.id)
+    }
+
     useEffect(() => {
         getProduct()
-    }, [])
+    }, [props.basketList])
 
     return (
         <div className="basket-item">
@@ -30,8 +35,9 @@ const BasketItem = (props) => {
                 <div>price: {product.price} </div>
             </section>
             <div className="quantity-stepper">quantity: {props.quantity} </div>
-            <section>
+            <section className="item-price">
                 <h4>Price: ${product.price * props.quantity}</h4>
+                <input className="button delete-button" defaultValue="Remove Item" onClick={handleDelete}/>
             </section>
         </div>
     )

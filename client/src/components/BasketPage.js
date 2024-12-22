@@ -7,12 +7,12 @@ const BasketPage = () => {
 
     const getTotal = (basket) =>  {
         if (!basket || basket.length == 0)
-            return
+            return setTotal("0.00")
         let total = 0
         basket.forEach(item => {
-            console.log(item)
             total += parseFloat(item.variation.price) * item.quantity
         })
+        total = Number(total.toFixed(2))
         setTotal(total)
     }
 
@@ -27,6 +27,23 @@ const BasketPage = () => {
         }
     }
 
+    const deleteItem = async (basketItemId) => {
+        try {
+            const response = await fetch(`/api/v1/baskets/${basketItemId}`, {
+                method: "delete",
+                headers: new Headers({
+                    "Content-Type": "application/json"
+                })
+            })
+            const newBasketList = basketList.filter(basketItem => basketItem.id != basketItemId)
+            console.log(newBasketList)
+            setBasketList(newBasketList)
+            getTotal(newBasketList)
+        } catch (error) {
+            console.log(`Error in delete fetch: ${error.message}`)
+        }
+    }
+
     useEffect(() => {
         getBasket()
     }, [])
@@ -37,12 +54,15 @@ const BasketPage = () => {
         return (
             <BasketItem 
                 key = {key}
+                id={item.id}
                 variationId={item.variation?.id}
                 productId={item.variation?.productId}
                 imageUrl={item.variation?.imageUrl}
                 color_description={item.variation?.color_description}
                 size={item.variation?.size}
                 quantity={item?.quantity}
+                basketList={basketList}
+                deleteItem={deleteItem}
             />
         )
     })

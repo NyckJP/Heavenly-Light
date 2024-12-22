@@ -17,14 +17,15 @@ basketsRouter.get("/", async (req, res) => {
         }
         const basket = await Promise.all(basketItemIds.map(async item => {
             const foundVariation = await Variation.query().findById(item.variationId)
-            return { variation: foundVariation, quantity: item.quantity }
+            return { id: item.id, variation: foundVariation, quantity: item.quantity }
         }))
-        res.status(200).json({ basket: basket })
+        return res.status(200).json({ basket: basket })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ errors: error })
     }
 })
+
 basketsRouter.post("/", async (req, res) => {
     const userId = req.user?.id
     let guestId = req.session.guestId
@@ -40,7 +41,19 @@ basketsRouter.post("/", async (req, res) => {
         } else {
             newBasketItem = await BasketItem.query().insertAndFetch({ guestId: guestId, variationId: foundVariation.id, quantity: basketItem.quantity })
         }
-        res.status(201).json(newBasketItem)
+        return res.status(201).json(newBasketItem)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ errors: error })
+    }
+})
+
+basketsRouter.delete("/:basketItemId", async (req, res) => {
+    const { basketItemId } = req.params
+
+    try {
+        const deletedBasketItem = await BasketItem.query().deleteById(basketItemId)
+        return res.status(204).json({})
     } catch (error) {
         console.log(error)
         return res.status(500).json({ errors: error })
