@@ -216,6 +216,10 @@ input[type="radio"]:checked + label {
   }
 }
 
+.empty-message {
+  text-align: center;
+}
+
 @media (min-width: 500px){
   .hide-on-large-screens{
     display: none;

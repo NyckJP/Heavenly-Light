@@ -92,6 +92,31 @@ const BasketPage = () => {
         )
     })
 
+    let renderBasketList
+    if(basketList.length == 0){
+        renderBasketList = (
+            <div className="empty-message">
+                <h3>You have nothing in your basket</h3>
+                <a href="/#products" className="button">Continue Shopping</a>
+            </div>
+        )
+    } else {
+        renderBasketList = (
+            <>
+                <div>{renderedBasket}</div>
+                <div className="subtotal-section">
+                    <div className="subtotal-container">
+                        <div className="subtotal">
+                            <h4>Subtotal:</h4>
+                            <h4>{total}</h4>
+                        </div>
+                        <input className="button" defaultValue="Checkout" />
+                    </div>
+                </div>
+            </>
+        )
+    }
+
     return (
         <div className="grid-container basket-page">
             <div className="products-header">
@@ -99,16 +124,7 @@ const BasketPage = () => {
                 <a href="/#products">Continue Shopping</a>
             </div>
             <hr />
-            <div>{renderedBasket}</div>
-            <div className="subtotal-section">
-                <div className="subtotal-container">
-                    <div className="subtotal">
-                        <h4>Subtotal:</h4>
-                        <h4>{total}</h4>
-                    </div>
-                    <input className="button" defaultValue="Checkout" />
-                </div>
-            </div>
+            {renderBasketList}
         </div>
     )
 }
