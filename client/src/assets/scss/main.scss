@@ -179,21 +179,41 @@ input[type="radio"]:checked + label {
   .item-details {
     width: 32rem;
   }
-  .quantity-stepper {
-    margin-right: 14rem;
+}
+
+.quantity-stepper {
+  display: flex;
+  flex-direction: row;
+  margin-right: 14rem;
+  height: 2rem;
+  border-radius: 1rem;
+  font-size: 25px;
+  p {
+    padding: 0 1rem;
+  }
+  .stepper-button {
+    cursor: pointer;
   }
 }
 
 .item-price {
-  text-align: center;
+  text-align: end;
   .delete-button {
     background-color: red;
   }
 }
 
-
-.subtotal {
+.subtotal-section {
   text-align: right;
+  .subtotal-container {
+    display: inline-flex;
+    flex-direction: column;
+    min-width: calc(15vw + 134px);
+    .subtotal {
+      display: inline-flex;
+      justify-content: space-between;
+    }
+  }
 }
 
 @media (min-width: 500px){

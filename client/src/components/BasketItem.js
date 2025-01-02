@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import QuantityStepper from "./QuantityStepper.js"
 
 const BasketItem = (props) => {
     const [product, setProduct] = useState({name: ""})
@@ -30,13 +31,19 @@ const BasketItem = (props) => {
             <img src="https://placehold.it/500x600" />
             <section className="item-details">
                 <h4>{product.name}</h4>
-                <div>color: {props.color_description} </div>
-                <div>size: {props.size} </div>
-                <div>price: {product.price} </div>
+                <div>{props.color_description} </div>
+                <div>{props.size} </div>
+                <div>{product.price} </div>
             </section>
-            <div className="quantity-stepper">quantity: {props.quantity} </div>
+            <QuantityStepper 
+                basketItemId={props.id} 
+                quantity={props.quantity} 
+                maxQuantity={props.maxQuantity} 
+                changeQuantity={props.changeQuantity} 
+                basketList={props.basketList}
+            />
             <section className="item-price">
-                <h4>Price: ${product.price * props.quantity}</h4>
+                <h4>{(product.price * props.quantity).toLocaleString('en-US', { style: 'currency', currency: 'USD'})}</h4>
                 <input className="button delete-button" defaultValue="Remove Item" onClick={handleDelete}/>
             </section>
         </div>

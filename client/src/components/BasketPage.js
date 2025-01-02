@@ -3,17 +3,16 @@ import BasketItem from "./BasketItem.js"
 
 const BasketPage = () => {
     const [basketList, setBasketList] = useState([])
-    const [total, setTotal] = useState(0.01)
+    const [total, setTotal] = useState("$0.00")
 
     const getTotal = (basket) =>  {
         if (!basket || basket.length == 0)
-            return setTotal("0.00")
+            return setTotal("$0.00")
         let total = 0
         basket.forEach(item => {
             total += parseFloat(item.variation.price) * item.quantity
         })
-        total = Number(total.toFixed(2))
-        setTotal(total)
+        setTotal(total.toLocaleString('en-US', { style: 'currency', currency: 'USD'}))
     }
 
     const getBasket = async () => {
@@ -44,6 +43,30 @@ const BasketPage = () => {
         }
     }
 
+    const changeQuantity = async (basketItemId, change) => {
+        try {
+            const response = await fetch(`/api/v1/baskets/${basketItemId}`, {
+                method: 'PATCH',
+                headers: new Headers({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify({ change: change })
+            })
+            const parsedResponse = await response.json()
+            let newBasketList = basketList
+            for(let i = 0; i < newBasketList.length; i++){
+                if(newBasketList[i].id == basketItemId) {
+                    newBasketList[i].quantity += change
+                }
+            }
+            setBasketList(newBasketList)
+            getTotal(newBasketList)
+            return parsedResponse.basketItem.quantity
+        } catch (error) {
+            console.log(`Error in change quantity fetch: ${error}`)
+        }
+    }
+
     useEffect(() => {
         getBasket()
     }, [])
@@ -61,8 +84,10 @@ const BasketPage = () => {
                 color_description={item.variation?.color_description}
                 size={item.variation?.size}
                 quantity={item?.quantity}
+                maxQuantity={item.variation?.quantity}
                 basketList={basketList}
                 deleteItem={deleteItem}
+                changeQuantity={changeQuantity}
             />
         )
     })
@@ -75,9 +100,14 @@ const BasketPage = () => {
             </div>
             <hr />
             <div>{renderedBasket}</div>
-            <div className="subtotal">
-                <h4>Subtotal: ${total}</h4>
-                <input className="button" defaultValue="Checkout"/>
+            <div className="subtotal-section">
+                <div className="subtotal-container">
+                    <div className="subtotal">
+                        <h4>Subtotal:</h4>
+                        <h4>{total}</h4>
+                    </div>
+                    <input className="button" defaultValue="Checkout" />
+                </div>
             </div>
         </div>
     )

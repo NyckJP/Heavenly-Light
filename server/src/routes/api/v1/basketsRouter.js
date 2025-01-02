@@ -1,5 +1,6 @@
 import express from "express"
 import { User, Variation, BasketItem, Product } from "../../../models/index.js"
+import { raw } from "objection"
 
 const basketsRouter = new express.Router()
 
@@ -42,6 +43,19 @@ basketsRouter.post("/", async (req, res) => {
             newBasketItem = await BasketItem.query().insertAndFetch({ guestId: guestId, variationId: foundVariation.id, quantity: basketItem.quantity })
         }
         return res.status(201).json(newBasketItem)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ errors: error })
+    }
+})
+
+basketsRouter.patch("/:id", async (req, res) => {
+    const { id } = req.params
+    const { change } = req.body
+
+    try {
+        const editedBasketItem = await BasketItem.query().patchAndFetchById(id, { quantity: raw('quantity + ?', change) })
+        return res.status(200).json({ basketItem: editedBasketItem })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ errors: error })
