@@ -1,9 +1,20 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import SignOutButton from "../authentication/SignOutButton";
+import React, { useState } from "react"
+import { Link } from "react-router-dom"
+import SignOutButton from "../authentication/SignOutButton"
 
-const TopBar = ({ user }) => {
+const TopBar = ({ user, basketCount }) => {
   const [renderNav, setRenderNav] = useState(false)
+
+  let renderBasketCount
+  if(basketCount > 0) {
+    renderBasketCount = (
+        <div className="basket-count-bubble">
+          {basketCount}
+        </div>
+    )
+  } else {
+    renderBasketCount = <></>
+  }
 
   const unauthenticatedListItems = [
     <li className="nav-link" key="products">
@@ -24,6 +35,7 @@ const TopBar = ({ user }) => {
     <li key="Basket">
       <Link to="/basket">
         <i className="fa-solid fa-basket-shopping" />
+        {renderBasketCount}
       </Link>
     </li>,
     // <li key="sign-in">
@@ -34,13 +46,13 @@ const TopBar = ({ user }) => {
     //     Sign Up
     //   </Link>
     // </li>
-  ];
+  ]
 
   const authenticatedListItems = [
     <li key="sign-out">
       <SignOutButton />
     </li>,
-  ];
+  ]
 
   const dropDownMenuItems = [
     <li key="products">
@@ -84,7 +96,7 @@ const TopBar = ({ user }) => {
          <ul className="menu">{unauthenticatedListItems}</ul> {/*user ? authenticatedListItems :*/}
       </div>
     </>
-  );
-};
+  )
+}
 
 export default TopBar;

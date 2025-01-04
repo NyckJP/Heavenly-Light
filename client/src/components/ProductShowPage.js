@@ -52,6 +52,7 @@ const ProductShowPage = (props) => {
             })
             if(response.ok){
                 setBasketButton("Item Saved in Basket!")
+                props.getBasketCount()
             } else {
                 setBasketButton("Save Failed")
             }

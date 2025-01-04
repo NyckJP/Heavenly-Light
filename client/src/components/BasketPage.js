@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import BasketItem from "./BasketItem.js"
 
-const BasketPage = () => {
+const BasketPage = (props) => {
     const [basketList, setBasketList] = useState([])
     const [total, setTotal] = useState("$0.00")
 
@@ -35,14 +35,14 @@ const BasketPage = () => {
                 })
             })
             const newBasketList = basketList.filter(basketItem => basketItem.id != basketItemId)
-            console.log(newBasketList)
             setBasketList(newBasketList)
             getTotal(newBasketList)
+            props.getBasketCount()
         } catch (error) {
             console.log(`Error in delete fetch: ${error.message}`)
         }
     }
-
+    
     const changeQuantity = async (basketItemId, change) => {
         try {
             const response = await fetch(`/api/v1/baskets/${basketItemId}`, {
@@ -61,6 +61,7 @@ const BasketPage = () => {
             }
             setBasketList(newBasketList)
             getTotal(newBasketList)
+            props.getBasketCount()
             return parsedResponse.basketItem.quantity
         } catch (error) {
             console.log(`Error in change quantity fetch: ${error}`)

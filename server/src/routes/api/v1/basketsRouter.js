@@ -27,6 +27,24 @@ basketsRouter.get("/", async (req, res) => {
     }
 })
 
+basketsRouter.get("/count", async (req, res) => {
+    const guestId = req.session.guestId
+
+    try {
+        if(!guestId)
+            return res.status(200).json({ basketCount: 0 })
+        const basketItems = await BasketItem.query().where("guestId", "=", guestId)
+        let basketCount = 0
+        for(let i = 0; i < basketItems.length; i++) {
+            basketCount += basketItems[i].quantity
+        }
+        return res.status(200).json({ basketCount: basketCount })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ errors: error })
+    }
+})
+
 basketsRouter.post("/", async (req, res) => {
     const userId = req.user?.id
     let guestId = req.session.guestId
