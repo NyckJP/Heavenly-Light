@@ -54,6 +54,15 @@ basketsRouter.post("/", async (req, res) => {
         const product = await Product.query().findById(productId)
         const response = await product.$relatedQuery("variations").where("color_description", "=", basketItem.color_description).andWhere("size", "=", basketItem.size)
         const foundVariation = response[0]
+
+        const basketList = await BasketItem.query().where("guestId", "=", guestId)
+        for(let i = 0; i < basketList.length; i++){
+            if(basketList[i].variationId == foundVariation.id){
+                const updatedBasketItem = await BasketItem.query().patchAndFetchById(basketList[i].id, { quantity: raw('quantity + ?', basketItem.quantity) })
+                return res.status(200).json({ updatedBasketItem: updatedBasketItem })
+            }
+        }
+
         let newBasketItem
         if(userId){
             newBasketItem = await BasketItem.query().insertAndFetch({ userId: userId, variationId: foundVariation.id, quantity: basketItem.quantity })
