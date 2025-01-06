@@ -58,6 +58,9 @@ basketsRouter.post("/", async (req, res) => {
         const basketList = await BasketItem.query().where("guestId", "=", guestId)
         for(let i = 0; i < basketList.length; i++){
             if(basketList[i].variationId == foundVariation.id){
+                const finalQuantity = basketList[i].quantity + basketItem.quantity
+                if(finalQuantity > foundVariation.quantity)
+                    throw new Error('Maximum quantity reached')
                 const updatedBasketItem = await BasketItem.query().patchAndFetchById(basketList[i].id, { quantity: raw('quantity + ?', basketItem.quantity) })
                 return res.status(200).json({ updatedBasketItem: updatedBasketItem })
             }
@@ -72,6 +75,8 @@ basketsRouter.post("/", async (req, res) => {
         return res.status(201).json(newBasketItem)
     } catch (error) {
         console.log(error)
+        if(error.message == 'Maximum quantity reached')
+            return res.status(400).json({ errors: error.message })
         return res.status(500).json({ errors: error })
     }
 })

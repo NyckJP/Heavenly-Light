@@ -11,7 +11,7 @@ const QuantityStepper = (props) => {
     }
     const incrementQuantity = async () => {
         if(quantity == props.maxQuantity){
-            alert("maximum quantity reached")
+            alert("Maximum Quantity Reached")
             return
         }
         const newQuantity = await props.changeQuantity(props.basketItemId, 1)

@@ -54,6 +54,8 @@ const ProductShowPage = (props) => {
                 setBasketButton("Item Saved in Basket!")
                 props.getBasketCount()
             } else {
+                if(response.status == 400)
+                    alert('Maximum Quantity Reached')
                 setBasketButton("Save Failed")
             }
         } catch (error) {
