@@ -8,13 +8,13 @@ class Variation extends Model {
     static get jsonSchema() {
         return {
             type: "object",
-            required: ["productId", "imageUrl", "color_description", "size", "quantity"],
+            required: ["productId", "imageUrl", "color_description", "quantity", "price"],
             properties: {
                 productId: {type: ["integer", "string"]},
                 imageUrl: {type: "string"},
                 color_description: {type: "string"},
-                size: {type: "string"},
-                quantity: {type: ["integer", "string"]}
+                quantity: {type: ["integer", "string"]},
+                price: {type: ["number", "string"]}
             }
         }
     }

@@ -1,5 +1,6 @@
 import express from "express";
 import passport from "passport";
+import { v4 as uuidv4 } from "uuid"
 
 const sessionRouter = new express.Router();
 
@@ -24,6 +25,10 @@ sessionRouter.get("/current", async (req, res) => {
   if (req.user) {
     res.status(200).json(req.user);
   } else {
+    if(!req.session.guestId){
+      req.session.guestId = uuidv4();
+    }
+    console.log(req.session)
     res.status(401).json(undefined);
   }
 });

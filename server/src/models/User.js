@@ -35,6 +35,21 @@ class User extends uniqueFunc(Model) {
     };
   }
 
+  static get relationMappings(){
+    const { BasketItem } = require("./index.js")
+
+    return {
+      basketItems: {
+        relation: Model.HasManyRelation,
+        modelClass: BasketItem,
+        join: {
+          from: "users.id",
+          to: "basketItems.userId"
+        }
+      }
+    }
+  }
+
   $formatJson(json) {
     const serializedJson = super.$formatJson(json);
 

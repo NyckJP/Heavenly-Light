@@ -8,7 +8,7 @@ variationRouter.get("/:productId", async (req, res) => {
 
     try {
         const allVariations = await Variation.query().where("productId", "=", productId)
-        return res.status(201).json({ variations: allVariations })
+        return res.status(200).json({ variations: allVariations })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ errors: error })

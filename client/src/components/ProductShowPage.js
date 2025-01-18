@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 const ProductShowPage = (props) => {
-    const [product, setProduct] = useState({})
+    const [product, setProduct] = useState({ id: null })
     const [variationList, setVariationList] = useState([{color_description: "none"}])
     const [renderedVariation, setRenderedVariation] = useState(0)
-    const [cartItem, setCartItem] = useState({ color_description: "none", size: "S", quantity: "1"})
+    const [basketItem, setBasketItem] = useState({ color_description: "none", size: "S", quantity: "1" })
+    const [basketButton, setBasketButton] = useState("Add to Basket")
 
     const productId = props.match.params.id
 
@@ -12,11 +13,13 @@ const ProductShowPage = (props) => {
         if(renderedVariation == 0 && direction == -1 || renderedVariation == variationList.length-1 && direction == 1)
             return
         setRenderedVariation(renderedVariation + direction)
-        setCartItem({...cartItem, color_description: variationList[renderedVariation + direction].color_description})
+        setBasketItem({...basketItem, color_description: variationList[renderedVariation + direction].color_description})
+        setBasketButton("Add to Basket")
     }
 
     const handleInputChange = event => {
-        setCartItem({...cartItem, [event.currentTarget.name]: event.currentTarget.value})
+        setBasketItem({...basketItem, [event.currentTarget.name]: event.currentTarget.value})
+        setBasketButton("Add to Basket")
     }
 
     const collectVariations = (allVariations) => {
@@ -36,32 +39,52 @@ const ProductShowPage = (props) => {
             }
         }
         
-        console.log(variations)
         return variations
+    }
+
+    const saveToBasket = async (event) => {
+        event.preventDefault()
+        try {
+            const response = await fetch('/api/v1/baskets', {
+                method: "post",
+                headers: new Headers({ 'Content-type': 'application/json' }),
+                body: JSON.stringify({ productId: product.id, basketItem: basketItem })
+            })
+            if(response.ok){
+                setBasketButton("Item Saved in Basket!")
+                props.getBasketCount()
+            } else {
+                if(response.status == 400)
+                    alert('Maximum Quantity Reached')
+                setBasketButton("Save Failed")
+            }
+        } catch (error) {
+            console.log(`Error in saveToBasket fetch: ${error.message}`)
+        }
     }
 
     const getProduct = async () => {
         try {
             const response = await fetch(`/api/v1/products/${productId}`)
             const parsedResponse = await response.json()
-            console.log(parsedResponse)
             setProduct(parsedResponse.product)
         } catch (error) {
             console.log(`Error in single product fetch: ${error.message}`)
         }
     }
-
+    
     const getVariations = async () => {
         try {
             const response = await fetch(`/api/v1/variations/${productId}`)
             const parsedResponse = await response.json()
             const variations = collectVariations(parsedResponse.variations)
             setVariationList(variations)
+            setBasketItem({...basketItem, color_description: variations[0].color_description})
         } catch (error) {
             console.log(`Error in variations fetch: ${error.message}`)
         }
     }
-
+    
     useEffect(() => {
         getProduct()
         getVariations()
@@ -81,7 +104,7 @@ const ProductShowPage = (props) => {
                     <p>{variationList[renderedVariation].color_description}</p>
                     <p>Description (Details): Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </section>
-                <form>
+                <form onSubmit={saveToBasket}>
                     <label>
                         Size:
                         <select name="size" onChange={handleInputChange}>
@@ -93,9 +116,9 @@ const ProductShowPage = (props) => {
                     </label>
                     <label>
                         Quantity:
-                        <input type="number" min="1" max="5" name="quantity" value={cartItem.quantity} onChange={handleInputChange}/>
+                        <input type="number" min="1" max="5" name="quantity" value={basketItem.quantity} onChange={handleInputChange}/>
                     </label>
-                    <input className="button" defaultValue="Add to Basket"/>
+                    <input className="button" type="submit" value={basketButton}/>
                 </form>
             </section>
         </div>

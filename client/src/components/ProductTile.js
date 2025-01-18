@@ -10,7 +10,6 @@ const ProductTile = (props) => {
             <h6>
                 ${props.price}
             </h6>
-            <input className="button" defaultValue="Add to Basket"/> {/* Change "defaultValue" to "value" when adding "onChange" */}
         </a>
     )
 }
