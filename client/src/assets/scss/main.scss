@@ -234,6 +234,25 @@ input[type="radio"]:checked + label {
   right: .5rem;
 }
 
+.address-form-container {
+  margin-top: 4rem;
+  max-width: 640px;
+  margin: 4rem auto 1rem;
+  padding: 0 1rem;
+  h1 {
+    text-align: center;
+  }
+}
+
+.checkout {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.success {
+  margin-top: 5rem;
+}
+
 @media (min-width: 500px){
   .hide-on-large-screens{
     display: none;

@@ -10,6 +10,8 @@ import TopBar from "./layout/TopBar"
 import LandingPage from "./LandingPage"
 import ProductShowPage from "./ProductShowPage"
 import BasketPage from "./BasketPage"
+import CheckoutPage from "./CheckoutPage"
+import CheckoutReturnPage from "./CheckoutReturnPage"
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined)
@@ -48,6 +50,8 @@ const App = (props) => {
         <Route exact path="/basket" render={() => <BasketPage getBasketCount={getBasketCount} />} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
+        <Route exact path="/checkout" component={CheckoutPage} />
+        <Route exact path="/return" component={CheckoutReturnPage} />
       </Switch>
     </Router>
   )
