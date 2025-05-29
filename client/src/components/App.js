@@ -51,7 +51,7 @@ const App = (props) => {
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/checkout" component={CheckoutPage} />
-        <Route exact path="/return" component={CheckoutReturnPage} />
+        <Route exact path="/return" render={() => <CheckoutReturnPage getBasketCount={getBasketCount} />} />
       </Switch>
     </Router>
   )

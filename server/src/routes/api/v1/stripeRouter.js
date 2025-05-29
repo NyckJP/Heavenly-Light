@@ -37,6 +37,9 @@ stripeRouter.post("/create_checkout_session", async (req, res) => {
         const session = await stripe.checkout.sessions.create({
             ui_mode: 'embedded',
             line_items: lineItems,
+            shipping_address_collection: {
+                allowed_countries: ['US', 'CA'],
+            },
             mode: 'payment',
             return_url: `http://localhost:3000/return?session_id={CHECKOUT_SESSION_ID}`
         })

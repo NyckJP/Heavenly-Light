@@ -30,51 +30,12 @@ const CheckoutPage = () => {
     const options = {fetchClientSecret}
 
     return(
-        <>
-            <div className="address-form-container">
-                <h1>Shipping Address</h1>
-                <form>
-                    <label>
-                        Email:
-                        <input type="text" name="email" />
-                    </label>
-                    <label>
-                        Full Name:
-                        <input type="text" name="fullName" />
-                    </label>
-                    <label>
-                        Street Address:
-                        <input type="text" name="streetAddress" />
-                    </label>
-                    <label>
-                        Apt/Suite/Other:
-                        <input type="text" name="aptNumber" />
-                    </label>
-                    <label>
-                        City:
-                        <input type="text" name="city" />
-                    </label>
-                    <label>
-                        State:
-                        <input type="text" name="state" />
-                    </label>
-                    <label>
-                        Zip Code:
-                        <input type="text" name="zipCode" />
-                    </label>
-                    <label>
-                        Phone Number (Optional):
-                        <input type="text" name="phoneNumber" />
-                    </label>
-                </form>
-            </div>
-            <div id="checkout" className="checkout">
-                <h1>Review and Payment</h1>
-                <EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
-                    <EmbeddedCheckout />
-                </EmbeddedCheckoutProvider>
-            </div>
-        </>
+        <div id="checkout" className="checkout">
+            <h1>Review and Payment</h1>
+            <EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
+                <EmbeddedCheckout />
+            </EmbeddedCheckoutProvider>
+        </div>
     )
 }
 

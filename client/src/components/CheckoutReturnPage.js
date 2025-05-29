@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-const CheckoutReturnPage = () => {
+const CheckoutReturnPage = (props) => {
     const [status, setStatus] = useState(null)
     const [customerEmail, setCustomerEmail] = useState('')
 
@@ -15,6 +15,13 @@ const CheckoutReturnPage = () => {
         setCustomerEmail(parsedResponse.customer_email)
     }
 
+    const clearBasket = async () => {
+      const response = await fetch(`api/v1/user-sessions/new-guest`, {
+        method: "post"
+      })
+      props.getBasketCount()
+    }
+
     useEffect(() => {
         getCheckoutStatus()
     }, [])  
@@ -26,13 +33,17 @@ const CheckoutReturnPage = () => {
       }
     
       if (status === 'complete') {
+        clearBasket()
         return (
           <section id="success" className="success">
+            <h1>Success</h1>
             <p>
               We appreciate your business! A confirmation email will be sent to {customerEmail}.
-    
+            </p>
+            <p>
               If you have any questions, please email <a href="mailto:orders@example.com">orders@example.com</a>.
             </p>
+            <a href="/" className="button">Back to Products</a>
           </section>
         )
       }
