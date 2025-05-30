@@ -99,4 +99,4 @@ const TopBar = ({ user, basketCount }) => {
   )
 }
 
-export default TopBar;
+export default TopBar

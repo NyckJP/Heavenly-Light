@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import ProductTile from "./ProductTile.js";
+import React, { useEffect, useState } from "react"
+import ProductTile from "./ProductTile.js"
 
 const ProductList = () => {
     const [category, setCategory] = useState("All Products")

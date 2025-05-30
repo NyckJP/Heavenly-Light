@@ -111,7 +111,7 @@ const BasketPage = (props) => {
                             <h4>Subtotal:</h4>
                             <h4>{total}</h4>
                         </div>
-                        <input className="button" defaultValue="Checkout" />
+                        <a href="/checkout" className="button">Checkout</a>
                     </div>
                 </div>
             </>
