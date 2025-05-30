@@ -18,7 +18,6 @@ const CheckoutPage = () => {
                 method: 'POST'
             })
             const parsedResponse = await response.json()
-            // console.log(parsedResponse)
             if(response.status === 404)
                 setShouldRedirect(true)
             return parsedResponse.clientSecret

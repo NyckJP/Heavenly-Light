@@ -29,8 +29,6 @@ stripeRouter.post("/create_checkout_session", async (req, res) => {
             return { price: price.id, quantity: item.quantity }
         }))
 
-        // const prices = await stripe.products.list()
-        // console.log(prices.data)
         if (lineItems.length == 0)
             throw new Error('No basket items found')
 

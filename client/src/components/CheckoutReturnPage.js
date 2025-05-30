@@ -5,9 +5,9 @@ const CheckoutReturnPage = (props) => {
     const [customerEmail, setCustomerEmail] = useState('')
 
     const getCheckoutStatus = async () => {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const sessionId = urlParams.get('session_id');
+        const queryString = window.location.search
+        const urlParams = new URLSearchParams(queryString)
+        const sessionId = urlParams.get('session_id')
     
         const response = await fetch(`api/v1/stripe/session-status?session_id=${sessionId}`)
         const parsedResponse = await response.json()
@@ -48,7 +48,7 @@ const CheckoutReturnPage = (props) => {
         )
       }
     
-      return null;
+      return null
 }
 
 export default CheckoutReturnPage
