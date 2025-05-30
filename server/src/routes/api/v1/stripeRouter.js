@@ -19,7 +19,7 @@ stripeRouter.post("/create_checkout_session", async (req, res) => {
             const foundProduct = await Product.query().findById(foundVariation.productId)
             const product = await stripe.products.create({ 
                 name: foundProduct.name, 
-                description: foundVariation.size + ', The item description' 
+                description: foundVariation.size + ', ' + foundVariation.color_description
             })
             const price = await stripe.prices.create({
                 product: product.id,

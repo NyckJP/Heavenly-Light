@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 
 const ProductShowPage = (props) => {
     const [product, setProduct] = useState({ id: null })
@@ -102,7 +102,8 @@ const ProductShowPage = (props) => {
                     <h1>{product.name}</h1>
                     <h4>${product.price}</h4>
                     <p>{variationList[renderedVariation].color_description}</p>
-                    <p>Description (Details): Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>Description (Details): {product.details}</p>
+                    <p>Placeholder Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </section>
                 <form onSubmit={saveToBasket}>
                     <label>
