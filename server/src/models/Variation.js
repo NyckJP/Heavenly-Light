@@ -18,6 +18,20 @@ class Variation extends Model {
             }
         }
     }
+
+    static get relationMappings() {
+        const { Product } = require("./index.js")
+        return {
+            product: {
+                relation: Model.HasOneRelation,
+                modelClass: Product,
+                join: {
+                    from: "variations.productId",
+                    to: "products.id"
+                }
+            }
+        }
+    }
 }
 
 module.exports = Variation

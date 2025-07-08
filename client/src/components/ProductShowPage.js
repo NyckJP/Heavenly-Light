@@ -94,7 +94,7 @@ const ProductShowPage = (props) => {
         <div className="show-page">
             <section className="left-side">
                 <i className="fa-solid fa-arrow-left" onClick={() => changeSlide(-1)}/>
-                <img src="https://placehold.it/500x600" />
+                <img src="https://placehold.co/500x600" />
                 <i className="fa-solid fa-arrow-right" onClick={() => changeSlide(1)}/>
             </section>
             <section className="right-side">

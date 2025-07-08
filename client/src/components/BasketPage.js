@@ -10,7 +10,7 @@ const BasketPage = (props) => {
             return setTotal("$0.00")
         let total = 0
         basket.forEach(item => {
-            total += parseFloat(item.variation.price) * item.quantity
+            total += parseFloat(item.price) * item.quantity
         })
         setTotal(total.toLocaleString('en-US', { style: 'currency', currency: 'USD'}))
     }

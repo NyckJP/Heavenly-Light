@@ -23,7 +23,7 @@ stripeRouter.post("/create_checkout_session", async (req, res) => {
             })
             const price = await stripe.prices.create({
                 product: product.id,
-                unit_amount: formatUSDToDigits(foundVariation.price),
+                unit_amount: formatUSDToDigits(foundProduct.price),
                 currency: 'usd',
             })
             return { price: price.id, quantity: item.quantity }

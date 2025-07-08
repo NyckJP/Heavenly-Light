@@ -18,7 +18,8 @@ basketsRouter.get("/", async (req, res) => {
         }
         const basket = await Promise.all(basketItemIds.map(async item => {
             const foundVariation = await Variation.query().findById(item.variationId)
-            return { id: item.id, variation: foundVariation, quantity: item.quantity }
+            const foundProduct = await foundVariation.$relatedQuery("product")
+            return { id: item.id, variation: foundVariation, price: foundProduct.price, quantity: item.quantity }
         }))
         return res.status(200).json({ basket: basket })
     } catch (error) {

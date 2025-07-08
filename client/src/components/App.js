@@ -12,6 +12,8 @@ import ProductShowPage from "./ProductShowPage"
 import BasketPage from "./BasketPage"
 import CheckoutPage from "./CheckoutPage"
 import CheckoutReturnPage from "./CheckoutReturnPage"
+import ManageProductsPage from "./admin/ManageProductsPage"
+import EditProductPage from "./admin/EditProductPage"
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined)
@@ -52,6 +54,8 @@ const App = (props) => {
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/checkout" component={CheckoutPage} />
         <Route exact path="/return" render={() => <CheckoutReturnPage getBasketCount={getBasketCount} />} />
+        <Route exact path="/manage-products" component={ManageProductsPage} />
+        <Route exact path="/edit-product/:id" component={EditProductPage} />
       </Switch>
     </Router>
   )
