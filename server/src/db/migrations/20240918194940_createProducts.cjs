@@ -10,7 +10,7 @@ exports.up = async (knex) => {
         table.bigIncrements("id")
         table.string("name").notNullable()
         table.string("imageUrl").notNullable()
-        table.string("details") //shirt materials, mug ounces, crochet dimensions
+        table.string("description")
         table.string("category").notNullable()
         table.decimal("price").notNullable()
         table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())

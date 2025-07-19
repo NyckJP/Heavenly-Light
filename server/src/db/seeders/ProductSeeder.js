@@ -4,72 +4,66 @@ class ProductSeeder {
     static async seed() {
         await Product.query().delete()
 
+        //Both Men and Women
         await Product.query().insert({
-            name: "T-Shirt",
+            name: "Heavenly T-Shirt",
             imageUrl: "image",
-            details: "Heavenly Light Logo",
-            category: "Tops",
+            description: "Heavenly Light Logo",
+            category: "Both",
             price: 9.99
         })
         await Product.query().insert({
-            name: "Hoodie",
+            name: "Heavenly Hoodie",
             imageUrl: "image",
-            details: "Large golden cross",
-            category: "Tops",
+            description: "Heavenly Light Logo",
+            category: "Both",
             price: 14.99
         })
         await Product.query().insert({
-            name: "Button Down",
+            name: "Heavenly Sweatshirt",
             imageUrl: "image",
-            category: "Tops",
-            price: 19.99
-        })
-
-        await Product.query().insert({
-            name: "Blanket",
-            imageUrl: "image",
-            details: "Queen Size - 90 inches x 100 inches",
-            category: "Crochets",
-            price: 99.99
-        })
-        await Product.query().insert({
-            name: "Sweater",
-            imageUrl: "image",
-            details: "Pink, Yellow, Blue",
-            category: "Crochets",
-            price: 49.99
-        })
-        await Product.query().insert({
-            name: "Plushie",
-            imageUrl: "image",
-            category: "Crochets",
-            price: 6.99
-        })
-        await Product.query().insert({
-            name: "Head Band",
-            imageUrl: "image",
-            category: "Crochets",
-            price: 8.99
-        })
-        await Product.query().insert({
-            name: "Basket",
-            imageUrl: "image",
-            category: "Crochets",
+            description: "Heavenly Light Logo",
+            category: "Both",
             price: 12.99
         })
-
+        
+        //Men
         await Product.query().insert({
-            name: "Jesus' Cross Mug",
+            name: "Mens Hoodie",
             imageUrl: "image",
-            category: "Mugs",
-            price: 4.99
+            description: "Christian Warrior Imagery",
+            category: "Men",
+            price: 14.99
         })
         await Product.query().insert({
-            name: "Bible Quote Mug",
+            name: "Bible Quote T-Shirt",
             imageUrl: "image",
-            details: "Jeremiah 29:11",
-            category: "Mugs",
-            price: 4.99
+            description: "Jeremiah 29:11",
+            category: "Men",
+            price: 10.99
+        })
+
+        //Women
+        await Product.query().insert({
+            name: "Womens Sweatshirt",
+            imageUrl: "image",
+            description: "Jesus' Cross in the Distance",
+            category: "Women",
+            price: 12.99
+        })
+        await Product.query().insert({
+            name: "Jesus' Love T-Shirt",
+            imageUrl: "image",
+            description: "idk",
+            category: "Women",
+            price: 7.99
+        })
+        await Product.query().insert({
+            name: "Bible Quote Hoodie",
+            imageUrl: "image",
+            description: "Psalm 9:10",
+            category: "Women",
+            price: 16.99
         })
     }
 }
