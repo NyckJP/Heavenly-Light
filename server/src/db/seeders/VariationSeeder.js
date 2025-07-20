@@ -27,7 +27,7 @@ class VariationSeeder {
         for(let i = 0; i  < allVariations.length; i++) {
             allVariations[i].forEach(async variation => {
                 await Variation.query().insert({
-                    product: i+1,
+                    productId: i+1,
                     imageUrl: "image",
                     color: variation
                 })

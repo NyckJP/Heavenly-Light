@@ -32,14 +32,14 @@ class ProductSeeder {
             name: "Mens Hoodie",
             imageUrl: "image",
             description: "Christian Warrior Imagery",
-            category: "Men",
+            category: "Men's",
             price: 14.99
         })
         await Product.query().insert({
             name: "Bible Quote T-Shirt",
             imageUrl: "image",
             description: "Jeremiah 29:11",
-            category: "Men",
+            category: "Men's",
             price: 10.99
         })
 
@@ -48,21 +48,21 @@ class ProductSeeder {
             name: "Womens Sweatshirt",
             imageUrl: "image",
             description: "Jesus' Cross in the Distance",
-            category: "Women",
+            category: "Women's",
             price: 12.99
         })
         await Product.query().insert({
             name: "Jesus' Love T-Shirt",
             imageUrl: "image",
             description: "idk",
-            category: "Women",
+            category: "Women's",
             price: 7.99
         })
         await Product.query().insert({
             name: "Bible Quote Hoodie",
             imageUrl: "image",
             description: "Psalm 9:10",
-            category: "Women",
+            category: "Women's",
             price: 16.99
         })
     }

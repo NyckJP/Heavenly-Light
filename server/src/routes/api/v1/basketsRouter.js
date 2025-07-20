@@ -52,7 +52,7 @@ basketsRouter.post("/", async (req, res) => {
 
     try {
         const product = await Product.query().findById(productId)
-        const response = await product.$relatedQuery("variations").where("color_description", "=", basketItem.color_description).andWhere("size", "=", basketItem.size)
+        const response = await product.$relatedQuery("variations").where("color", "=", basketItem.color).andWhere("size", "=", basketItem.size)
         const foundVariation = response[0]
 
         const basketList = await BasketItem.query().where("guestId", "=", guestId)

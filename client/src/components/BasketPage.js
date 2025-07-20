@@ -82,7 +82,7 @@ const BasketPage = (props) => {
                 variationId={item.variation?.id}
                 productId={item.variation?.productId}
                 imageUrl={item.variation?.imageUrl}
-                color_description={item.variation?.color_description}
+                color={item.variation?.color}
                 size={item.variation?.size}
                 quantity={item?.quantity}
                 maxQuantity={item.variation?.quantity}

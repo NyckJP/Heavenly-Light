@@ -20,7 +20,7 @@ class Variation extends Model {
     static get relationMappings() {
         const { Size } = require("./index.js")
         return {
-            Size: {
+            sizes: {
                 relation: Model.HasManyRelation,
                 modelClass: Size,
                 join: {

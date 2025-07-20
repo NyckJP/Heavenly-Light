@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react"
 
 const ProductShowPage = (props) => {
     const [product, setProduct] = useState({ id: null })
-    const [variationList, setVariationList] = useState([{color_description: "none"}])
+    const [variationList, setVariationList] = useState([{id: 1, color: "none"}])
+    const [sizeList, setSizeList] = useState([])
     const [renderedVariation, setRenderedVariation] = useState(0)
-    const [basketItem, setBasketItem] = useState({ color_description: "none", size: "S", quantity: "1" })
+    const [basketItem, setBasketItem] = useState({ color: "none", size: "S", quantity: "1" })
     const [basketButton, setBasketButton] = useState("Add to Basket")
 
     const productId = props.match.params.id
@@ -13,7 +14,8 @@ const ProductShowPage = (props) => {
         if(renderedVariation == 0 && direction == -1 || renderedVariation == variationList.length-1 && direction == 1)
             return
         setRenderedVariation(renderedVariation + direction)
-        setBasketItem({...basketItem, color_description: variationList[renderedVariation + direction].color_description})
+        getSizes()
+        setBasketItem({...basketItem, color: variationList[renderedVariation + direction].color})
         setBasketButton("Add to Basket")
     }
 
@@ -25,16 +27,18 @@ const ProductShowPage = (props) => {
     const collectVariations = (allVariations) => {
         let variations = [
             {
+                id: allVariations[0].id,
                 imageUrl: allVariations[0].imageUrl,
-                color_description: allVariations[0].color_description
+                color: allVariations[0].color
             }
         ]
 
         for(let i = 1; i < allVariations.length; i++) {
-            if(allVariations[i].color_description != allVariations[i-1].color_description) {
+            if(allVariations[i].color != allVariations[i-1].color) {
                 variations.push({
+                    id: allVariations[i].id,
                     imageUrl: allVariations[i].imageUrl,
-                    color_description: allVariations[i].color_description
+                    color: allVariations[i].color
                 })
             }
         }
@@ -79,9 +83,20 @@ const ProductShowPage = (props) => {
             const parsedResponse = await response.json()
             const variations = collectVariations(parsedResponse.variations)
             setVariationList(variations)
-            setBasketItem({...basketItem, color_description: variations[0].color_description})
+            getSizes()
+            setBasketItem({...basketItem, color: variations[0].color})
         } catch (error) {
             console.log(`Error in variations fetch: ${error.message}`)
+        }
+    }
+    
+    const getSizes = async () => {
+        try {
+            const response = await fetch(`/api/v1/variations/sizes/${variationList[renderedVariation].id}`)
+            const parsedResponse = await response.json()
+            setSizeList(parsedResponse.sizes)
+        } catch (error) {
+            console.log(`Error in sizes fetch: ${error.message}`)
         }
     }
     
@@ -90,29 +105,34 @@ const ProductShowPage = (props) => {
         getVariations()
     }, [])
 
+    let key = 0
+    let sizeOptions = sizeList.map(size => {
+        key++
+        return <option key={key} value={size.size}>{size.size}</option>
+    })
+
+    console.log(basketItem)
+
     return (
         <div className="show-page">
             <section className="left-side">
                 <i className="fa-solid fa-arrow-left" onClick={() => changeSlide(-1)}/>
-                <img src="https://placehold.it/500x600" />
+                <img src="https://placehold.co/500x600" />
                 <i className="fa-solid fa-arrow-right" onClick={() => changeSlide(1)}/>
             </section>
             <section className="right-side">
                 <section>
                     <h1>{product.name}</h1>
                     <h4>${product.price}</h4>
-                    <p>{variationList[renderedVariation].color_description}</p>
-                    <p>Description (Details): {product.details}</p>
+                    <p>{variationList[renderedVariation].color}</p>
+                    <p>Description: {product.description}</p>
                     <p>Placeholder Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </section>
                 <form onSubmit={saveToBasket}>
                     <label>
                         Size:
                         <select name="size" onChange={handleInputChange}>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
+                            {sizeOptions}
                         </select>
                     </label>
                     <label>

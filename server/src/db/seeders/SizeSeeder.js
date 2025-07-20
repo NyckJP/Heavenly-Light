@@ -4,17 +4,17 @@ class SizeSeeder {
     static async seed() {
         await Size.query().delete()
 
-        const allVariations = await Variation.query()
-        allVariations.forEach(variation => {
-            const sizes = ["Small", "Medium", "Large", "X-Large"]
-            sizes.forEach(async size => {
+        const allVariations = await Variation.query()  
+        const sizes = ["Small", "Medium", "Large", "X-Large"]
+        for(let i = 0; i < allVariations.length; i++) {
+            for(let j = 0; j < sizes.length; j++){
                 await Size.query().insert({
-                    variationId: variation.id,
-                    size: size,
+                    variationId: allVariations[i].id,
+                    size: sizes[j],
                     quantity: 5
                 })
-            })
-        })
+            }
+        }
     }
 }
 

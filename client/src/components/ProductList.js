@@ -49,14 +49,11 @@ const ProductList = () => {
                     <input type="radio" id="All" name="filter" onChange={() => setCategory("All Products")}/>
                     <label htmlFor="All" className="category-button">All</label>
 
-                    <input type="radio" id="Shirts" name="filter" onChange={() => setCategory("Tops")}/>
-                    <label htmlFor="Shirts" className="category-button">Tops</label>
+                    <input type="radio" id="Shirts" name="filter" onChange={() => setCategory("Men's")}/>
+                    <label htmlFor="Shirts" className="category-button">Mens</label>
 
-                    <input type="radio" id="Mugs" name="filter" onChange={() => setCategory("Mugs")}/>
-                    <label htmlFor="Mugs" className="category-button">Mugs</label>
-
-                    <input type="radio" id="Crochet" name="filter" onChange={() => setCategory("Crochets")}/>
-                    <label htmlFor="Crochet" className="category-button">Crochets</label>
+                    <input type="radio" id="Mugs" name="filter" onChange={() => setCategory("Women's")}/>
+                    <label htmlFor="Mugs" className="category-button">Womens</label>
                 </div>
             </div>
             <hr />
