@@ -18,7 +18,7 @@ class Variation extends Model {
     }
 
     static get relationMappings() {
-        const { Size } = require("./index.js")
+        const { Size, Product } = require("./index.js")
         return {
             sizes: {
                 relation: Model.HasManyRelation,
@@ -26,6 +26,14 @@ class Variation extends Model {
                 join: {
                     from: "variations.id",
                     to: "sizes.variationId"
+                }
+            },
+            product: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: Product,
+                join: {
+                    from: "variations.productId",
+                    to: "products.id"
                 }
             }
         }

@@ -1,24 +1,19 @@
 import express from "express"
-import { User, Variation, BasketItem, Product } from "../../../models/index.js"
+import { Product, Size, BasketItem,  } from "../../../models/index.js"
 import { raw } from "objection"
 
 const basketsRouter = new express.Router()
 
 basketsRouter.get("/", async (req, res) => {
-    const userId = req.user?.id
     let guestId = req.session.guestId
     
     try {
-        let basketItemIds
-        if(userId){
-            const currentUser = await User.query().findById(userId)
-            basketItemIds = await currentUser.$relatedQuery("basketItems")
-        } else {
-            basketItemIds = await BasketItem.query().where("guestId", "=", guestId)
-        }
+        let basketItemIds = await BasketItem.query().where("guestId", "=", guestId)
         const basket = await Promise.all(basketItemIds.map(async item => {
-            const foundVariation = await Variation.query().findById(item.variationId)
-            return { id: item.id, variation: foundVariation, quantity: item.quantity }
+            const foundSize = await Size.query().findById(item.sizeId)
+            const foundVariation = await foundSize.$relatedQuery("variation")
+            const foundProduct = await foundVariation.$relatedQuery("product")
+            return { id: item.id, product: foundProduct, variation: foundVariation, size: foundSize, quantity: item.quantity }
         }))
         return res.status(200).json({ basket: basket })
     } catch (error) {
@@ -46,32 +41,29 @@ basketsRouter.get("/count", async (req, res) => {
 })
 
 basketsRouter.post("/", async (req, res) => {
-    const userId = req.user?.id
     let guestId = req.session.guestId
     const { productId, basketItem } = req.body
 
     try {
         const product = await Product.query().findById(productId)
-        const response = await product.$relatedQuery("variations").where("color", "=", basketItem.color).andWhere("size", "=", basketItem.size)
+        const response = await product.$relatedQuery("variations").where("color", "=", basketItem.color)
         const foundVariation = response[0]
+        const response2 = await foundVariation.$relatedQuery("sizes").where("size", "=", basketItem.size)
+        const foundSize = response2[0]
+        console.log(basketItem.size)
 
         const basketList = await BasketItem.query().where("guestId", "=", guestId)
         for(let i = 0; i < basketList.length; i++){
-            if(basketList[i].variationId == foundVariation.id){
+            if(basketList[i].sizeId == foundSize.id){
                 const finalQuantity = parseInt(basketList[i].quantity) + parseInt(basketItem.quantity)
-                if(finalQuantity > foundVariation.quantity)
+                if(finalQuantity > foundSize.quantity)
                     throw new Error('Maximum quantity reached')
                 const updatedBasketItem = await BasketItem.query().patchAndFetchById(basketList[i].id, { quantity: raw('quantity + ?', basketItem.quantity) })
                 return res.status(200).json({ updatedBasketItem: updatedBasketItem })
             }
         }
 
-        let newBasketItem
-        if(userId){
-            newBasketItem = await BasketItem.query().insertAndFetch({ userId: userId, variationId: foundVariation.id, quantity: basketItem.quantity })
-        } else {
-            newBasketItem = await BasketItem.query().insertAndFetch({ guestId: guestId, variationId: foundVariation.id, quantity: basketItem.quantity })
-        }
+        let newBasketItem = await BasketItem.query().insertAndFetch({ guestId: guestId, sizeId: foundSize.id, quantity: basketItem.quantity })
         return res.status(201).json(newBasketItem)
     } catch (error) {
         console.log(error)

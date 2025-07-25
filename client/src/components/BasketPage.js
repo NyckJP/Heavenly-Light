@@ -10,7 +10,7 @@ const BasketPage = (props) => {
             return setTotal("$0.00")
         let total = 0
         basket.forEach(item => {
-            total += parseFloat(item.variation.price) * item.quantity
+            total += parseFloat(item.product.price) * item.quantity
         })
         setTotal(total.toLocaleString('en-US', { style: 'currency', currency: 'USD'}))
     }
@@ -83,9 +83,9 @@ const BasketPage = (props) => {
                 productId={item.variation?.productId}
                 imageUrl={item.variation?.imageUrl}
                 color={item.variation?.color}
-                size={item.variation?.size}
+                size={item.size?.size}
                 quantity={item?.quantity}
-                maxQuantity={item.variation?.quantity}
+                maxQuantity={item.size?.quantity}
                 basketList={basketList}
                 deleteItem={deleteItem}
                 changeQuantity={changeQuantity}

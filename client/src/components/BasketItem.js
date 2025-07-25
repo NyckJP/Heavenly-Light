@@ -33,7 +33,7 @@ const BasketItem = (props) => {
                 <h4>{product.name}</h4>
                 <div>{props.color} </div>
                 <div>{props.size} </div>
-                <div>{product.price} </div>
+                <div>${product.price} </div>
             </section>
             <QuantityStepper 
                 basketItemId={props.id} 

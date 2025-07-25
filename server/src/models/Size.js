@@ -24,7 +24,7 @@ class Size extends Model {
                 relation: Model.BelongsToOneRelation,
                 modelClass: Variation,
                 join: {
-                    from: "size.variationId",
+                    from: "sizes.variationId",
                     to: "variations.id"
                 }
             }

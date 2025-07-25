@@ -5,7 +5,7 @@ const ProductShowPage = (props) => {
     const [variationList, setVariationList] = useState([{id: 1, color: "none"}])
     const [sizeList, setSizeList] = useState([])
     const [renderedVariation, setRenderedVariation] = useState(0)
-    const [basketItem, setBasketItem] = useState({ color: "none", size: "S", quantity: "1" })
+    const [basketItem, setBasketItem] = useState({ color: "none", size: "Small", quantity: "1" })
     const [basketButton, setBasketButton] = useState("Add to Basket")
 
     const productId = props.match.params.id
