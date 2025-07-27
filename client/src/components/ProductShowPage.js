@@ -4,6 +4,7 @@ const ProductShowPage = (props) => {
     const [product, setProduct] = useState({ id: null })
     const [variationList, setVariationList] = useState([{id: 1, color: "none"}])
     const [sizeList, setSizeList] = useState([])
+    const [maxQuantity, setMaxQuantity] = useState(5)
     const [renderedVariation, setRenderedVariation] = useState(0)
     const [basketItem, setBasketItem] = useState({ color: "none", size: "Small", quantity: "1" })
     const [basketButton, setBasketButton] = useState("Add to Basket")
@@ -14,12 +15,18 @@ const ProductShowPage = (props) => {
         if(renderedVariation == 0 && direction == -1 || renderedVariation == variationList.length-1 && direction == 1)
             return
         setRenderedVariation(renderedVariation + direction)
-        getSizes()
         setBasketItem({...basketItem, color: variationList[renderedVariation + direction].color})
         setBasketButton("Add to Basket")
     }
 
     const handleInputChange = event => {
+        if(event.currentTarget.name == "size"){
+            sizeList.forEach(size => {
+                if(size.size == event.currentTarget.value){
+                    setMaxQuantity(size.quantity)
+                }
+            })
+        }
         setBasketItem({...basketItem, [event.currentTarget.name]: event.currentTarget.value})
         setBasketButton("Add to Basket")
     }
@@ -83,7 +90,6 @@ const ProductShowPage = (props) => {
             const parsedResponse = await response.json()
             const variations = collectVariations(parsedResponse.variations)
             setVariationList(variations)
-            getSizes()
             setBasketItem({...basketItem, color: variations[0].color})
         } catch (error) {
             console.log(`Error in variations fetch: ${error.message}`)
@@ -105,13 +111,23 @@ const ProductShowPage = (props) => {
         getVariations()
     }, [])
 
+    useEffect(() => {
+        getSizes()
+    }, [renderedVariation])
+
+    useEffect(() => {
+        sizeList.forEach(size => {
+            if(size.size == basketItem.size){
+                setMaxQuantity(size.quantity)
+            }
+        })
+    }, [sizeList])
+    
     let key = 0
     let sizeOptions = sizeList.map(size => {
         key++
         return <option key={key} value={size.size}>{size.size}</option>
     })
-
-    console.log(basketItem)
 
     return (
         <div className="show-page">
@@ -137,7 +153,7 @@ const ProductShowPage = (props) => {
                     </label>
                     <label>
                         Quantity:
-                        <input type="number" min="1" max="5" name="quantity" value={basketItem.quantity} onChange={handleInputChange}/>
+                        <input type="number" min="1" max={maxQuantity} name="quantity" value={basketItem.quantity} onChange={handleInputChange}/>
                     </label>
                     <input className="button" type="submit" value={basketButton}/>
                 </form>
