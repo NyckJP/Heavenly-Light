@@ -6,7 +6,7 @@ const ProductShowPage = (props) => {
     const [sizeList, setSizeList] = useState([])
     const [maxQuantity, setMaxQuantity] = useState(5)
     const [renderedVariation, setRenderedVariation] = useState(0)
-    const [basketItem, setBasketItem] = useState({ color: "none", size: "Small", quantity: "1" })
+    const [basketItem, setBasketItem] = useState({ color: "none", size: null, quantity: "1" })
     const [basketButton, setBasketButton] = useState("Add to Basket")
 
     const productId = props.match.params.id
@@ -101,6 +101,7 @@ const ProductShowPage = (props) => {
             const response = await fetch(`/api/v1/variations/sizes/${variationList[renderedVariation].id}`)
             const parsedResponse = await response.json()
             setSizeList(parsedResponse.sizes)
+            setBasketItem({...basketItem, size: parsedResponse.sizes[0].size, color: variationList[renderedVariation].color})
         } catch (error) {
             console.log(`Error in sizes fetch: ${error.message}`)
         }
@@ -113,7 +114,7 @@ const ProductShowPage = (props) => {
 
     useEffect(() => {
         getSizes()
-    }, [renderedVariation])
+    }, [variationList])
 
     useEffect(() => {
         sizeList.forEach(size => {

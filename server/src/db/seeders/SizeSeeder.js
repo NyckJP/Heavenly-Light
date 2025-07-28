@@ -11,7 +11,7 @@ class SizeSeeder {
                 await Size.query().insert({
                     variationId: allVariations[i].id,
                     size: sizes[j],
-                    quantity: Math.floor(Math.random() * 10) + 2
+                    quantity: Math.floor(Math.random() * 10)
                 })
             }
         }
