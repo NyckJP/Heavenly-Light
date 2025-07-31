@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import VariationImage from "./VariationImage.js"
 
 const ProductShowPage = (props) => {
     const [product, setProduct] = useState({ id: null })
@@ -132,11 +133,7 @@ const ProductShowPage = (props) => {
 
     return (
         <div className="show-page">
-            <section className="left-side">
-                <i className="fa-solid fa-arrow-left" onClick={() => changeSlide(-1)}/>
-                <img src="https://placehold.co/500x600" />
-                <i className="fa-solid fa-arrow-right" onClick={() => changeSlide(1)}/>
-            </section>
+            <VariationImage changeSlide={changeSlide} variationList={variationList} renderedVariation={renderedVariation} />
             <section className="right-side">
                 <section>
                     <h1>{product.name}</h1>

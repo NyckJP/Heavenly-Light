@@ -8,7 +8,7 @@ const ProductList = () => {
     const setFilter = (allProducts, newCategory) => {
         if(newCategory == "All Products")
             return allProducts
-        const newList = allProducts.filter(product => product.category == newCategory)
+        const newList = allProducts.filter(product => product.category == newCategory || product.category == "Both")
         return newList
     }
 
