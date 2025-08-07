@@ -9,6 +9,9 @@ variationRouter.get("/:productId", async (req, res) => {
     
     try {
         const allVariations = await Variation.query().where("productId", "=", productId)
+        //filter allVariations
+            //loop through sizes
+                //if totalQuantity > 0, pass it through to allAvailableVariations
         return res.status(200).json({ variations: allVariations })
     } catch (error) {
         console.log(error)

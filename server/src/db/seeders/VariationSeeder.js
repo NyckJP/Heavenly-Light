@@ -1,4 +1,4 @@
-import { Variation } from "../../models/index.js"
+import { Product, Variation } from "../../models/index.js"
 
 class VariationSeeder {
     static async seed() {
@@ -24,14 +24,17 @@ class VariationSeeder {
             eighthItemVariations
         ]
         
+        const firstProduct = await Product.query().findOne({name: 'Heavenly T-Shirt'})
+        let productId = firstProduct.id
         for(let i = 0; i  < allVariations.length; i++) {
             allVariations[i].forEach(async variation => {
                 await Variation.query().insert({
-                    productId: i+1,
+                    productId: productId,
                     imageUrl: "image",
                     color: variation
                 })
             })
+            productId++
         }
     }
 }

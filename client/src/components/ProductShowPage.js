@@ -4,9 +4,9 @@ import VariationImage from "./VariationImage.js"
 const ProductShowPage = (props) => {
     const [product, setProduct] = useState({ id: null })
     const [variationList, setVariationList] = useState([{id: 1, color: "none"}])
+    const [renderedVariation, setRenderedVariation] = useState(0)
     const [sizeList, setSizeList] = useState([])
     const [maxQuantity, setMaxQuantity] = useState(5)
-    const [renderedVariation, setRenderedVariation] = useState(0)
     const [basketItem, setBasketItem] = useState({ color: "none", size: null, quantity: "1" })
     const [basketButton, setBasketButton] = useState("Add to Basket")
 
@@ -115,7 +115,7 @@ const ProductShowPage = (props) => {
 
     useEffect(() => {
         getSizes()
-    }, [variationList])
+    }, [variationList, renderedVariation])
 
     useEffect(() => {
         sizeList.forEach(size => {

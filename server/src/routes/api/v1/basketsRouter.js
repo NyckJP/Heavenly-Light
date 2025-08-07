@@ -86,6 +86,22 @@ basketsRouter.patch("/:id", async (req, res) => {
     }
 })
 
+basketsRouter.delete("/clear-basket", async (req, res) => {
+    let guestId = req.session.guestId
+
+    try {
+        const basketList = await BasketItem.query().where("guestId", "=", guestId)
+        for (let i = 0; i < basketList.length; i++) {
+            const editedSizeQuantity = await Size.query().patchAndFetchById(basketList[i].sizeId, { quantity: raw('quantity - ?', basketList[i].quantity) })
+        }
+        const deletedBasket = await BasketItem.query().where("guestId", "=", guestId).delete()
+        return res.status(204).json({})
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ errors: error })
+    }
+})
+
 basketsRouter.delete("/:basketItemId", async (req, res) => {
     const { basketItemId } = req.params
 
