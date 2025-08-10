@@ -28,12 +28,12 @@ const BasketItem = (props) => {
 
     return (
         <div className="basket-item">
-            <img src="https://placehold.it/500x600" />
+            <img src="https://placehold.co/500x600" />
             <section className="item-details">
                 <h4>{product.name}</h4>
-                <div>{props.color_description} </div>
+                <div>{props.color} </div>
                 <div>{props.size} </div>
-                <div>{product.price} </div>
+                <div>${product.price} </div>
             </section>
             <QuantityStepper 
                 basketItemId={props.id} 

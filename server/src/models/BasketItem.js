@@ -8,9 +8,9 @@ class BasketItem extends Model {
     static get jsonSchema() {
         return {
             type: "object",
-            required: ["variationId", "quantity"],
+            required: ["sizeId", "quantity"],
             properties: {
-                variationId: {type: ["integer", "string"]},
+                sizeId: {type: ["integer", "string"]},
                 quantity: {type: ["integer", "string"]}
             }
         }

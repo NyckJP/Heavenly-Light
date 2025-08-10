@@ -1,5 +1,5 @@
 import express from "express"
-import { Variation, BasketItem, Product } from "../../../models/index.js"
+import { BasketItem, Size } from "../../../models/index.js"
 import formatUSDToDigits from "../../../services/formatUSDToDigits.js"
 import Stripe from "stripe"
 import dotenv from "dotenv"
@@ -15,15 +15,16 @@ stripeRouter.post("/create_checkout_session", async (req, res) => {
     try {
         let basketItemIds = await BasketItem.query().where("guestId", "=", guestId)
         const lineItems = await Promise.all(basketItemIds.map(async item => {
-            const foundVariation = await Variation.query().findById(item.variationId)
-            const foundProduct = await Product.query().findById(foundVariation.productId)
+            const foundSize = await Size.query().findById(item.sizeId)
+            const foundVariation = await foundSize.$relatedQuery("variation")
+            const foundProduct = await foundVariation.$relatedQuery("product")
             const product = await stripe.products.create({ 
                 name: foundProduct.name, 
-                description: foundVariation.size + ', ' + foundVariation.color_description
+                description: foundSize.size + ', ' + foundVariation.color
             })
             const price = await stripe.prices.create({
                 product: product.id,
-                unit_amount: formatUSDToDigits(foundVariation.price),
+                unit_amount: formatUSDToDigits(foundProduct.price),
                 currency: 'usd',
             })
             return { price: price.id, quantity: item.quantity }

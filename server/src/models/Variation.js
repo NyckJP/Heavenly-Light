@@ -8,13 +8,33 @@ class Variation extends Model {
     static get jsonSchema() {
         return {
             type: "object",
-            required: ["productId", "imageUrl", "color_description", "quantity", "price"],
+            required: ["productId", "imageUrl", "color"],
             properties: {
                 productId: {type: ["integer", "string"]},
                 imageUrl: {type: "string"},
-                color_description: {type: "string"},
-                quantity: {type: ["integer", "string"]},
-                price: {type: ["number", "string"]}
+                color: {type: "string"}
+            }
+        }
+    }
+
+    static get relationMappings() {
+        const { Size, Product } = require("./index.js")
+        return {
+            sizes: {
+                relation: Model.HasManyRelation,
+                modelClass: Size,
+                join: {
+                    from: "variations.id",
+                    to: "sizes.variationId"
+                }
+            },
+            product: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: Product,
+                join: {
+                    from: "variations.productId",
+                    to: "products.id"
+                }
             }
         }
     }

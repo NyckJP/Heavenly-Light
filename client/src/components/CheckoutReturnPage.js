@@ -16,24 +16,37 @@ const CheckoutReturnPage = (props) => {
     }
 
     const clearBasket = async () => {
-      const response = await fetch(`api/v1/user-sessions/new-guest`, {
-        method: "post"
-      })
-      props.getBasketCount()
+      try {
+        const response = await fetch(`api/v1/baskets/clear-basket`, {
+          method: "delete"
+        })
+        if(response.ok){
+          const newUser = await fetch(`api/v1/user-sessions/new-guest`, {
+            method: "post"
+          })
+        }
+        props.getBasketCount()
+      } catch (error) {
+        console.log(`Error in clear basket fetch: ${error}`)
+      }
     }
 
     useEffect(() => {
         getCheckoutStatus()
-    }, [])  
+    }, [])
+
+    useEffect(() => {
+      if(status === 'complete')
+        clearBasket()
+    }, [status])  
 
     if (status === 'open') {
-        return (
-          <Navigate to="/checkout" />
-        )
-      }
+      return (
+        <Navigate to="/checkout" />
+      )
+    }
     
       if (status === 'complete') {
-        clearBasket()
         return (
           <section id="success" className="success">
             <h1>Success</h1>

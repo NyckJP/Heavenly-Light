@@ -6,11 +6,11 @@
  * @param {Knex} knex
  */
 exports.up = async (knex) => {
-    return knex.schema.createTable("variations", table => {
+    return knex.schema.createTable("basketItems", table => {
         table.bigIncrements("id")
-        table.bigInteger("productId").unsigned().notNullable().index().references("products.id")
-        table.string("imageUrl").notNullable()
-        table.string("color").notNullable()
+        table.string("guestId")
+        table.bigInteger("sizeId").unsigned().notNullable().references("sizes.id")
+        table.integer("quantity").notNullable()
         table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
         table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())
     })
@@ -20,5 +20,5 @@ exports.up = async (knex) => {
  * @param {Knex} knex
  */
 exports.down = (knex) => {
-    return knex.schema.dropTableIfExists("variations")
+    return knex.schema.dropTableIfExists("basketItems")
 }
