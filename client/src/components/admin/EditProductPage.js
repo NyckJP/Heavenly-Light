@@ -3,7 +3,8 @@ import VariationTile from "./VariationTile"
 import EditField from "./EditField"
 
 const EditProductPage = (props) => {
-    const [product, setProduct] = useState({id: null, variations: [{id: 1, color: null}]})
+    const [product, setProduct] = useState({id: null})
+    const [variations, setVariations] = useState([])
 
     const productId = props.match.params.id
 
@@ -12,6 +13,7 @@ const EditProductPage = (props) => {
             const response = await fetch(`/api/v1/admin/get-product/${productId}`)
             const parsedResponse = await response.json()
             setProduct(parsedResponse.product)
+            setVariations(parsedResponse.variations)
         } catch (error) {
             console.log(`Error in adminGetProduct fetch: ${error.message}`)
         }
@@ -42,7 +44,7 @@ const EditProductPage = (props) => {
     }, [])
 
     let key = 0
-    const variationList = product.variations.map(variation => {
+    const variationList = variations.map(variation => {
         key++
         return <VariationTile key={key} variation={variation} />
     })

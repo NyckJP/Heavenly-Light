@@ -19,8 +19,7 @@ adminRouter.get("/get-product/:id", async (req, res) => {
     try {
         const singleProduct = await Product.query().findById(id)
         const variations = await singleProduct.$relatedQuery("variations")
-        singleProduct.variations = variations
-        return res.status(200).json({ product: singleProduct })
+        return res.status(200).json({ product: singleProduct, variations: variations })
     } catch (error) {
         console.log(error)
         return res.status(500).json({ errors: error })

@@ -18,10 +18,22 @@ const EditField = (props) => {
         setRenderEditField(!renderEditField)
     }
 
+    let dollarSign
+    if(props.part == "price"){
+        dollarSign = "$"
+    }
+
+    let textField = <input type="text" onChange={handleInputChange} value={editPayload} /> 
+    let displayText = <h2>{dollarSign}{props.text}</h2>
+    if(props.part == "description"){
+        textField = <textarea type="text" onChange={handleInputChange} value={editPayload} />
+        displayText = <h3>{props.text}</h3>
+    }
+
     if (renderEditField) {
         return (
             <div className="edit-field">
-                <input type="text" onChange={handleInputChange} value={editPayload} /> 
+                {textField}
                 <div>
                     <button className="button" onClick={saveEdit}>Save Edit</button>
                     <button className="button" onClick={toggleEditField}>Cancel Edit</button>
@@ -31,7 +43,7 @@ const EditField = (props) => {
     } else {
         return (
             <div className="edit-field">
-                <h2>{props.text}</h2>
+                {displayText}
                 <button className="button" onClick={toggleEditField}>Edit {props.part}...</button>
             </div>
         )

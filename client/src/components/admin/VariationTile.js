@@ -25,9 +25,11 @@ const VariationTile = ({ variation }) => {
 
     let sizesList
     if(renderSizes){
+        let key = 0
         sizesList = sizes.map(size => {
+            key++
             return (
-                <div className="size-container">
+                <div key={key} className="size-container">
                     <h6>{size.size}</h6>
                     <h6>{size.quantity}</h6>
                 </div>
