@@ -3,7 +3,7 @@ import VariationImage from "./VariationImage.js"
 
 const ProductShowPage = (props) => {
     const [product, setProduct] = useState({ id: null })
-    const [variationList, setVariationList] = useState([{id: 1, color: "none"}])
+    const [variationList, setVariationList] = useState([])
     const [renderedVariation, setRenderedVariation] = useState(0)
     const [sizeList, setSizeList] = useState([])
     const [maxQuantity, setMaxQuantity] = useState(5)
@@ -138,7 +138,7 @@ const ProductShowPage = (props) => {
                 <section>
                     <h1>{product.name}</h1>
                     <h4>${product.price}</h4>
-                    <p>{variationList[renderedVariation].color}</p>
+                    <p>{variationList.length > 0 ? variationList[renderedVariation].color : null}</p>
                     <p>Description: {product.description}</p>
                     <p>Placeholder Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </section>

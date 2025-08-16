@@ -14,7 +14,7 @@ const EditField = (props) => {
     }
     
     const saveEdit = () => {
-        props.editProduct(props.part, editPayload)
+        props.editProduct(editPayload, props.part)
         setRenderEditField(!renderEditField)
     }
 

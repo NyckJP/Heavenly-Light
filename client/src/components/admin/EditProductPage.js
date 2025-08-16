@@ -19,7 +19,7 @@ const EditProductPage = (props) => {
         }
     }
 
-    const editProduct = async (attribute, payload) => {
+    const editProduct = async (payload, attribute) => {
         const editedProduct = {...product, [attribute]: payload}
         try {
             const response = await fetch(`/api/v1/admin/edit-product/${productId}`, {
@@ -35,7 +35,7 @@ const EditProductPage = (props) => {
                 setProduct(editedProduct)
             }
         } catch (error) {
-            console.error(`Error in patch fetch: ${error.message}`)
+            console.error(`Error in editProduct fetch: ${error.message}`)
         }
     }
 
@@ -46,7 +46,7 @@ const EditProductPage = (props) => {
     let key = 0
     const variationList = variations.map(variation => {
         key++
-        return <VariationTile key={key} variation={variation} />
+        return <VariationTile key={key} variation={variation} updateVariation={getProduct} />
     })
 
     return (

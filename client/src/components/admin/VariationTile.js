@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
+import EditField from "./EditField.js"
 
-const VariationTile = ({ variation }) => {
+const VariationTile = ({ variation, updateVariation }) => {
     const [sizes, setSizes] = useState([])
     const [renderSizes, setRenderSizes] = useState(false)
 
@@ -11,6 +12,25 @@ const VariationTile = ({ variation }) => {
             setSizes(parsedResponse.sizes)
         } catch (error) {
             console.error(`Error in getSizes fetch: ${error.message}`)
+        }
+    }
+
+    const editVariationColor = async (payload) => {
+        try {
+            const response = await fetch(`/api/v1/admin/edit-variation/${variation.id}`, {
+                method: "PATCH",
+                headers: new Headers({
+                    "Content-Type": "application/json"
+                }),
+                body: JSON.stringify({ editedColor: payload })
+            })
+            if (!response.ok) {
+                throw new Error(`${response.status} (${response.statusText})`)
+            } else {
+                await updateVariation()
+            }
+        } catch (error) {
+            console.error(`Error in editVariationColor fetch: ${error.message}`)
         }
     }
 
@@ -41,7 +61,11 @@ const VariationTile = ({ variation }) => {
         <div className="variation-tile">
             <section>
                 <img src="https://placehold.co/500x600" />
-                <h2>{variation.color}</h2>
+                <EditField 
+                    text={variation.color}
+                    part="color"
+                    editProduct={editVariationColor}
+                />
             </section>
             <button className="button" onClick={handleRenderSizes}>Sizes and Quantities</button>
             {sizesList}
