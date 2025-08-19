@@ -51,7 +51,7 @@ const ProductShowPage = (props) => {
             }
         }
         
-        return variations
+        return variations.sort((a, b) => a.id - b.id)
     }
 
     const saveToBasket = async (event) => {

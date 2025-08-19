@@ -8,7 +8,7 @@ const ManageProductsPage = () => {
         try {
             const response = await fetch('/api/v1/admin/all-products')
             const parsedResponse = await response.json()
-            setInventoryList(parsedResponse.products)
+            setInventoryList(parsedResponse.products.toSorted((a, b) => a.id - b.id))
         } catch (error) {
             console.log(`Error in adminGetProducts fetch: ${error.message}`)
         }

@@ -13,7 +13,7 @@ const EditProductPage = (props) => {
             const response = await fetch(`/api/v1/admin/get-product/${productId}`)
             const parsedResponse = await response.json()
             setProduct(parsedResponse.product)
-            setVariations(parsedResponse.variations)
+            setVariations(parsedResponse.variations.toSorted((a, b) => a.id - b.id))
         } catch (error) {
             console.log(`Error in adminGetProduct fetch: ${error.message}`)
         }
