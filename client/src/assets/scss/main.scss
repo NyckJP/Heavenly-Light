@@ -318,6 +318,7 @@ input[type="radio"]:checked + label {
 .size-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .edit-field {
@@ -329,6 +330,19 @@ input[type="radio"]:checked + label {
     border-radius: 1.5rem;
     width: 25rem;
     height: 5rem;
+  }
+}
+
+.edit-stock-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  p {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  input {
+    width: 3.5rem;
   }
 }
 

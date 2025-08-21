@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import EditField from "./EditField.js"
+import EditStockField from "./EditStockField.js"
 
 const VariationTile = ({ variation, updateVariation }) => {
     const [sizes, setSizes] = useState([])
@@ -9,7 +10,7 @@ const VariationTile = ({ variation, updateVariation }) => {
         try {
             const response = await fetch(`/api/v1/admin/get-sizes/${variation.id}`)
             const parsedResponse = await response.json()
-            setSizes(parsedResponse.sizes)
+            setSizes(parsedResponse.sizes.toSorted((a, b) => a.id - b.id))
         } catch (error) {
             console.error(`Error in getSizes fetch: ${error.message}`)
         }
@@ -51,7 +52,7 @@ const VariationTile = ({ variation, updateVariation }) => {
             return (
                 <div key={key} className="size-container">
                     <h6>{size.size}</h6>
-                    <h6>{size.quantity}</h6>
+                    <EditStockField id={size.id} quantity={size.quantity} />
                 </div>
             )
         })
