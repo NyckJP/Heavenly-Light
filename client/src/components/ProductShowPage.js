@@ -101,7 +101,7 @@ const ProductShowPage = (props) => {
         try {
             const response = await fetch(`/api/v1/variations/sizes/${variationList[renderedVariation].id}`)
             const parsedResponse = await response.json()
-            setSizeList(parsedResponse.sizes)
+            setSizeList(parsedResponse.sizes.toSorted((a, b) => a.id - b.id))
             setBasketItem({...basketItem, size: parsedResponse.sizes[0].size, color: variationList[renderedVariation].color})
         } catch (error) {
             console.log(`Error in sizes fetch: ${error.message}`)
