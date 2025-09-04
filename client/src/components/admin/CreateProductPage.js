@@ -2,10 +2,12 @@ import React, { useState } from "react"
 import { Redirect } from "react-router-dom"
 import CreateVariationForm from "./CreateVariationForm.js"
 import NewVariationTile from "./NewVariationTile.js"
+import FormError from "./../layout/FormError.js"
 
 const CreateProductPage = () => {
     const [productPayload, setProductPayload] = useState({ name: "", category: "", description: "", price: ""})
     const [variationsPayload, setVariationsPayload] = useState([])
+    const [errors, setErrors] = useState({})
     const [shouldRedirect, setShouldRedirect] = useState(false)
 
     const handleProductInputChange = event => {
@@ -15,17 +17,50 @@ const CreateProductPage = () => {
         })
     }
 
+    const validateInput = (product, variationList) => {
+        const { name, category, price } = product
+        let newErrors = {}
+
+        if (name.trim() == '') {
+            newErrors = { name: "a name is required" }
+        }
+        if (category.trim() == '') {
+            newErrors = { 
+                ...newErrors,
+                category: "a category is required" 
+            }
+        }
+        if (price.trim() == '') {
+            newErrors = { 
+                ...newErrors, 
+                price: "a price is required" 
+            }
+        }
+        if (variationList.length == 0) {
+            newErrors = {
+                ...newErrors,
+                variations: "at least 1 is required"
+            }
+        }
+
+        return newErrors
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-            const response = await fetch("/api/v1/admin", {
-                method: "POST",
-                headers: new Headers({
-                    "Content-Type": "application/json",
-                }),
-                body: JSON.stringify({ product: productPayload, variations: variationsPayload })
-            })
-            setShouldRedirect(true)
+            let newErrors = validateInput(productPayload, variationsPayload)
+            if (Object.keys(newErrors).length === 0) {
+                const response = await fetch("/api/v1/admin", {
+                    method: "POST",
+                    headers: new Headers({
+                        "Content-Type": "application/json",
+                    }),
+                    body: JSON.stringify({ product: productPayload, variations: variationsPayload })
+                })
+                setShouldRedirect(true)
+            }
+            setErrors(newErrors)
         } catch (error) {
             console.error(`Error in product handleSubmit fetch: ${error.message}`)
         }
@@ -54,6 +89,7 @@ const CreateProductPage = () => {
                         <option value="Men's">Men's</option>
                         <option value="Women's">Women's</option>
                     </select>
+                    <FormError error={errors.category} />
                 </label>
                 <label>
                     Name:
@@ -63,6 +99,7 @@ const CreateProductPage = () => {
                         value={productPayload.name}
                         onChange={handleProductInputChange}
                     />
+                    <FormError error={errors.name} />
                 </label>
                 <label>
                     Product Description:
@@ -82,9 +119,11 @@ const CreateProductPage = () => {
                         onChange={handleProductInputChange}
                     />
                 </label>
+                <FormError error={errors.price} />
                 <button type="submit" className="button">Create Product</button>
             </form>
             <CreateVariationForm variationsPayload={variationsPayload} setVariationsPayload={setVariationsPayload} />
+            <FormError error={errors.variations} />
             <div className="grid-container grid-x grid-margin-x grid-margin-y">
                 {renderNewVariations}
             </div>
