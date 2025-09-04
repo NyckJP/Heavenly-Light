@@ -75,4 +75,38 @@ adminRouter.patch("/edit-stock/:id", async (req, res) => {
     }
 })
 
+adminRouter.post("/", async (req, res) => {
+    const { product, variations} = req.body
+    console.log(product)
+
+    try {
+        const newProduct = await Product.query().insertAndFetch({
+            name: product.name, 
+            imageUrl: "image", 
+            description: product.description,
+            category: product.category,
+            price: product.price
+        })
+        const sizes = ["Small", "Medium", "Large", "X-Large"]
+        for (let i = 0; i < variations.length; i++) {
+            const newVariation = await Variation.query().insertAndFetch({
+                productId: newProduct.id,
+                imageUrl: "image",
+                color: variations[i].color
+            })
+            for (const size of sizes) {
+                const variationSize = await Size.query().insertAndFetch({
+                    variationId: newVariation.id,
+                    size: size,
+                    quantity: variations[i].startingQuantity
+                })
+            }
+        }
+        return res.status(200).json({ newProduct: newProduct })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ errors: error })
+    }
+})
+
 export default adminRouter

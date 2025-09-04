@@ -36,6 +36,7 @@ const ManageProductsPage = () => {
     return (
         <div className="manage-products-page">
             <h1>Inventory (Product List)</h1>
+            <h4><a href="/create-product">Add a New Product</a></h4>
             {renderedInventoryList}
         </div>
     )
