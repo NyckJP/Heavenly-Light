@@ -69,7 +69,15 @@ const CreateProductPage = () => {
     let key = 0
     const renderNewVariations = variationsPayload.map(variation => {
         key++
-        return <NewVariationTile key={key} color={variation.color} startingQuantity={variation.startingQuantity} />
+        return (
+            <NewVariationTile 
+                key={key} 
+                color={variation.color} 
+                startingQuantity={variation.startingQuantity} 
+                variationsPayload={variationsPayload}
+                setVariationsPayload={setVariationsPayload}
+            />
+        )
     })
 
     if (shouldRedirect) {
