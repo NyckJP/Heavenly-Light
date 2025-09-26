@@ -1,6 +1,8 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 const NewVariationTile = (props) => {
+    const [imagePreview, setImagePreview] = useState("")
+    
     const deleteNewVariation = () => {
         let newVariationsList = [...props.variationsPayload]
         const newVariationIndex = newVariationsList.findIndex(variation => variation.color == props.color)
@@ -8,11 +10,15 @@ const NewVariationTile = (props) => {
         props.setVariationsPayload(newVariationsList)
     }
 
+    useEffect(() => {
+        setImagePreview(URL.createObjectURL(props.image))
+    }, [props.variationsPayload])
+
     return (
         <div className="cell medium-4 small-6 new-variation-tile">
-            <img src="https://placehold.co/500x600" />
+            <img className="img-preview" src={imagePreview} />
             <p>Color/Description: {props.color}</p>
-            <p>Starting Stock Quantity: {props.startingQuantity}</p>
+            <p>Stocked Quantity: {props.startingQuantity}</p>
             <button className="button" onClick={deleteNewVariation}>Remove Variation</button>
         </div>
     )

@@ -1,5 +1,6 @@
 import express from "express"
 import { Product, Variation, Size } from "../../../models/index.js"
+import uploadImage from "../../../services/uploadImage.js"
 
 const adminRouter = new express.Router()
 
@@ -75,14 +76,14 @@ adminRouter.patch("/edit-stock/:id", async (req, res) => {
     }
 })
 
-adminRouter.post("/", async (req, res) => {
-    const { product, variations} = req.body
-    console.log(product)
+adminRouter.post("/", uploadImage.array("images"), async (req, res) => {
+    const product = JSON.parse(req.body.product)
+    const variations = JSON.parse(req.body.variations)
 
     try {
         const newProduct = await Product.query().insertAndFetch({
             name: product.name, 
-            imageUrl: "image", 
+            imageUrl: req.files[0].location, 
             description: product.description,
             category: product.category,
             price: product.price
@@ -91,7 +92,7 @@ adminRouter.post("/", async (req, res) => {
         for (let i = 0; i < variations.length; i++) {
             const newVariation = await Variation.query().insertAndFetch({
                 productId: newProduct.id,
-                imageUrl: "image",
+                imageUrl: req.files[i].location,
                 color: variations[i].color
             })
             for (const size of sizes) {

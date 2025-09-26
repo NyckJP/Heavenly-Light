@@ -58,10 +58,15 @@ const VariationTile = ({ variation, updateVariation }) => {
         })
     }
 
+    let image = "https://placehold.co/500x600"
+    if (variation.imageUrl != "image") {
+        image = variation.imageUrl
+    }
+
     return (
         <div className="variation-tile">
             <section>
-                <img src="https://placehold.co/500x600" />
+                <img src={image} />
                 <EditField 
                     text={variation.color}
                     part="color"

@@ -51,12 +51,18 @@ const CreateProductPage = () => {
         try {
             let newErrors = validateInput(productPayload, variationsPayload)
             if (Object.keys(newErrors).length === 0) {
+                const payloadBody = new FormData()
+                payloadBody.append("product", JSON.stringify(productPayload))
+                payloadBody.append("variations", JSON.stringify(variationsPayload))
+                for (const variation of variationsPayload) {
+                    payloadBody.append("images", variation.image)
+                }
                 const response = await fetch("/api/v1/admin", {
                     method: "POST",
                     headers: new Headers({
-                        "Content-Type": "application/json",
+                        "Accept": "image/jpeg"
                     }),
-                    body: JSON.stringify({ product: productPayload, variations: variationsPayload })
+                    body: payloadBody
                 })
                 setShouldRedirect(true)
             }
@@ -71,7 +77,8 @@ const CreateProductPage = () => {
         key++
         return (
             <NewVariationTile 
-                key={key} 
+                key={key}
+                image={variation.image}
                 color={variation.color} 
                 startingQuantity={variation.startingQuantity} 
                 variationsPayload={variationsPayload}
