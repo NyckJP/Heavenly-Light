@@ -3,7 +3,7 @@ import VariationImage from "./VariationImage.js"
 
 const ProductShowPage = (props) => {
     const [product, setProduct] = useState({ id: null })
-    const [variationList, setVariationList] = useState([])
+    const [variationList, setVariationList] = useState([{ imageUrl: null }])
     const [renderedVariation, setRenderedVariation] = useState(0)
     const [sizeList, setSizeList] = useState([])
     const [maxQuantity, setMaxQuantity] = useState(5)
@@ -133,7 +133,7 @@ const ProductShowPage = (props) => {
 
     return (
         <div className="show-page">
-            <VariationImage changeSlide={changeSlide} variationList={variationList} renderedVariation={renderedVariation} />
+            <VariationImage changeSlide={changeSlide} variationList={variationList} renderedVariation={renderedVariation} imageUrl={variationList[renderedVariation].imageUrl} />
             <section className="right-side">
                 <section>
                     <h1>{product.name}</h1>

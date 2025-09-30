@@ -5,6 +5,9 @@ const variationsSizesRouter = new express.Router()
 
 variationsSizesRouter.get("/:variationId", async (req, res) => {
     const { variationId } = req.params
+    if (variationId == "undefined") { //fix this in frontend
+        return res.status(404).json({})
+    }
 
     try {
         const variation = await Variation.query().findById(variationId)

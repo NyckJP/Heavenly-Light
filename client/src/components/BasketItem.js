@@ -26,9 +26,14 @@ const BasketItem = (props) => {
         getProduct()
     }, [props.basketList])
 
+    let image = "https://placehold.co/500x600"
+    if (props.imageUrl != "image") {
+        image = props.imageUrl
+    }
+
     return (
         <div className="basket-item">
-            <img src="https://placehold.co/500x600" />
+            <img src={image} />
             <section className="item-details">
                 <h4>{product.name}</h4>
                 <div>{props.color} </div>
