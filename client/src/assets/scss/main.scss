@@ -356,6 +356,16 @@ input[type="radio"]:checked + label {
   }
 }
 
+.edit-image-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  img {
+    margin-bottom: 1rem;
+  }
+}
+
 .create-product-page {
   width: 800px;
   margin-left: auto;

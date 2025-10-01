@@ -76,6 +76,18 @@ adminRouter.patch("/edit-stock/:id", async (req, res) => {
     }
 })
 
+adminRouter.patch("/edit-image/:id", uploadImage.single("image"), async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const newImage = await Variation.query().patchAndFetchById(id, { imageUrl: req.file.location})
+        return res.status(200).json({ editedImage: newImage })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ errors: error })
+    }
+})
+
 adminRouter.post("/", uploadImage.array("images"), async (req, res) => {
     const product = JSON.parse(req.body.product)
     const variations = JSON.parse(req.body.variations)

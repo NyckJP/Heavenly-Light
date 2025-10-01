@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import EditField from "./EditField.js"
 import EditStockField from "./EditStockField.js"
+import EditImageField from "./EditImageField.js"
 
 const VariationTile = ({ variation, updateVariation }) => {
     const [sizes, setSizes] = useState([])
@@ -66,7 +67,7 @@ const VariationTile = ({ variation, updateVariation }) => {
     return (
         <div className="variation-tile">
             <section>
-                <img src={image} />
+                <EditImageField variationId={variation.id} imageUrl={variation.imageUrl} updateVariation={updateVariation} />
                 <EditField 
                     text={variation.color}
                     part="color"
