@@ -65,8 +65,9 @@ const CreateProductPage = () => {
                     body: payloadBody
                 })
                 setShouldRedirect(true)
+            } else {
+                setErrors(newErrors)
             }
-            setErrors(newErrors)
         } catch (error) {
             console.error(`Error in product handleSubmit fetch: ${error.message}`)
         }

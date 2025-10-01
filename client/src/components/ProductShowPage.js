@@ -99,6 +99,9 @@ const ProductShowPage = (props) => {
     
     const getSizes = async () => {
         try {
+            if(variationList[renderedVariation].id == undefined) {
+                return
+            }
             const response = await fetch(`/api/v1/variations/sizes/${variationList[renderedVariation].id}`)
             const parsedResponse = await response.json()
             setSizeList(parsedResponse.sizes.toSorted((a, b) => a.id - b.id))
