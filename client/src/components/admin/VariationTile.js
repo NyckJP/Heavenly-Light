@@ -67,7 +67,7 @@ const VariationTile = ({ variation, updateVariation }) => {
     return (
         <div className="variation-tile">
             <section>
-                <EditImageField variationId={variation.id} imageUrl={variation.imageUrl} updateVariation={updateVariation} />
+                <EditImageField variationId={variation.id} imageUrl={image} updateVariation={updateVariation} />
                 <EditField 
                     text={variation.color}
                     part="color"

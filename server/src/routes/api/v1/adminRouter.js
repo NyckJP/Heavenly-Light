@@ -122,4 +122,16 @@ adminRouter.post("/", uploadImage.array("images"), async (req, res) => {
     }
 })
 
+adminRouter.delete("/delete-product/:id", async (req, res) => {
+    const { id } = req.params
+
+    try {
+        await Product.query().deleteById(id)
+        return res.status(204).json({})
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ errors: error })
+    }
+})
+
 export default adminRouter

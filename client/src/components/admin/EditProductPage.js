@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react"
 import VariationTile from "./VariationTile"
 import EditField from "./EditField"
+import { Redirect } from "react-router-dom"
 
 const EditProductPage = (props) => {
     const [product, setProduct] = useState({id: null})
     const [variations, setVariations] = useState([])
+    const [shouldRedirect, setShouldRedirect] = useState(false)
 
     const productId = props.match.params.id
 
@@ -39,6 +41,23 @@ const EditProductPage = (props) => {
         }
     }
 
+    const deleteProduct = async () => {
+        const confirmDelete = confirm("Delete this product?")
+        try {
+            if (confirmDelete) {
+                await fetch(`/api/v1/admin/delete-product/${product.id}`, {
+                    method: "delete",
+                    headers: new Headers({
+                        "Content-Type": "application/json"
+                    })
+                })
+                setShouldRedirect(true)
+            }
+        } catch (error) {
+            console.error(`Error in deleteProduct fetch: ${error.message}`)
+        }
+    }
+
     useEffect(() => {
         getProduct()
     }, [])
@@ -48,6 +67,10 @@ const EditProductPage = (props) => {
         key++
         return <VariationTile key={key} variation={variation} updateVariation={getProduct} />
     })
+
+    if (shouldRedirect) {
+        return <Redirect push to="/manage-products" />
+    }
 
     return (
         <div className="manage-products-page">
@@ -80,6 +103,7 @@ const EditProductPage = (props) => {
             </div>
             <h1>Edit Variations</h1>
             {variationList}
+            <button className="button" onClick={deleteProduct}>Delete Product</button>
         </div>
     )
 }
