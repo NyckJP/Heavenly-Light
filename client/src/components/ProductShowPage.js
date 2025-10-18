@@ -3,7 +3,7 @@ import VariationImage from "./VariationImage.js"
 
 const ProductShowPage = (props) => {
     const [product, setProduct] = useState({ id: null })
-    const [variationList, setVariationList] = useState([{id: 1, color: "none"}])
+    const [variationList, setVariationList] = useState([{ imageUrl: null }])
     const [renderedVariation, setRenderedVariation] = useState(0)
     const [sizeList, setSizeList] = useState([])
     const [maxQuantity, setMaxQuantity] = useState(5)
@@ -51,7 +51,7 @@ const ProductShowPage = (props) => {
             }
         }
         
-        return variations
+        return variations.sort((a, b) => a.id - b.id)
     }
 
     const saveToBasket = async (event) => {
@@ -99,9 +99,12 @@ const ProductShowPage = (props) => {
     
     const getSizes = async () => {
         try {
+            if(variationList[renderedVariation].id == undefined) {
+                return
+            }
             const response = await fetch(`/api/v1/variations/sizes/${variationList[renderedVariation].id}`)
             const parsedResponse = await response.json()
-            setSizeList(parsedResponse.sizes)
+            setSizeList(parsedResponse.sizes.toSorted((a, b) => a.id - b.id))
             setBasketItem({...basketItem, size: parsedResponse.sizes[0].size, color: variationList[renderedVariation].color})
         } catch (error) {
             console.log(`Error in sizes fetch: ${error.message}`)
@@ -133,12 +136,12 @@ const ProductShowPage = (props) => {
 
     return (
         <div className="show-page">
-            <VariationImage changeSlide={changeSlide} variationList={variationList} renderedVariation={renderedVariation} />
+            <VariationImage changeSlide={changeSlide} variationList={variationList} renderedVariation={renderedVariation} imageUrl={variationList[renderedVariation].imageUrl} />
             <section className="right-side">
                 <section>
                     <h1>{product.name}</h1>
                     <h4>${product.price}</h4>
-                    <p>{variationList[renderedVariation].color}</p>
+                    <p>{variationList.length > 0 ? variationList[renderedVariation].color : null}</p>
                     <p>Description: {product.description}</p>
                     <p>Placeholder Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </section>

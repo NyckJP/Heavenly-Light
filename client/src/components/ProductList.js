@@ -7,9 +7,9 @@ const ProductList = () => {
 
     const setFilter = (allProducts, newCategory) => {
         if(newCategory == "All Products")
-            return allProducts
+            return allProducts.toSorted((a, b) => a.id - b.id)
         const newList = allProducts.filter(product => product.category == newCategory || product.category == "Both")
-        return newList
+        return newList.sort((a, b) => a.id - b.id)
     }
 
     const getProducts = async () => {

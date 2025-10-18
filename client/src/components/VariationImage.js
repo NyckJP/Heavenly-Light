@@ -29,11 +29,16 @@ const VariationImage = props => {
     useEffect(() => {
         getArrows()
     }, [props.variationList, props.renderedVariation])
+
+    let image = "https://placehold.co/500x600"
+    if (props.imageUrl != "image") {
+        image = props.imageUrl
+    }
     
     return (
         <section className="left-side">
             {renderLeftArrow}
-            <img src="https://placehold.co/500x600" />
+            <img src={image} />
             {renderRightArrow}
         </section>
     )
