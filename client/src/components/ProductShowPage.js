@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 import VariationImage from "./VariationImage.js"
 
 const ProductShowPage = (props) => {
-    const [product, setProduct] = useState({ id: null })
-    const [variationList, setVariationList] = useState([{ imageUrl: null }])
+    const [product, setProduct] = useState({ id: null, name: null })
+    const [variationList, setVariationList] = useState([{ id: null, imageUrl: null }])
     const [renderedVariation, setRenderedVariation] = useState(0)
     const [sizeList, setSizeList] = useState([])
     const [maxQuantity, setMaxQuantity] = useState(5)
