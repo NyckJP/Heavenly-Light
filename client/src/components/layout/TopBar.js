@@ -23,12 +23,12 @@ const TopBar = ({ user, basketCount }) => {
       </a>
     </li>,
     <li className="nav-link" key="about">
-      <Link>
+      <Link to="/">
         About
       </Link>
     </li>,
     <li className="nav-link" key="contact">
-      <Link>
+      <Link to="/">
         Contact
       </Link>
     </li>,
@@ -49,9 +49,30 @@ const TopBar = ({ user, basketCount }) => {
   ]
 
   const authenticatedListItems = [
+    <li className="nav-link" key="products">
+      <a href="/#products">
+        Products
+      </a>
+    </li>,
+    <li className="nav-link" key="about">
+      <Link to="/">
+        About
+      </Link>
+    </li>,
+    <li className="nav-link" key="contact">
+      <Link to="/">
+        Contact
+      </Link>
+    </li>,
+    <li key="Basket">
+      <Link to="/basket">
+        <i className="fa-solid fa-basket-shopping" />
+        {renderBasketCount}
+      </Link>
+    </li>,
     <li key="sign-out">
       <SignOutButton />
-    </li>,
+    </li>
   ]
 
   const dropDownMenuItems = [
@@ -61,12 +82,12 @@ const TopBar = ({ user, basketCount }) => {
       </Link>
     </li>,
     <li key="about">
-      <Link>
+      <Link to="/">
         About
       </Link>
     </li>,
     <li key="contact">
-      <Link>
+      <Link to="/">
         Contact
       </Link>
     </li>
@@ -93,7 +114,7 @@ const TopBar = ({ user, basketCount }) => {
         <ul className="menu">
           <li className="menu-text">Heavenly Light</li>
         </ul>
-         <ul className="menu">{unauthenticatedListItems}</ul> {/*user ? authenticatedListItems :*/}
+         <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
       </div>
     </>
   )

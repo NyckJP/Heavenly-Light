@@ -8,7 +8,7 @@ const EditProductPage = (props) => {
     const [variations, setVariations] = useState([])
     const [shouldRedirect, setShouldRedirect] = useState(false)
 
-    const productId = props.match.params.id
+    const productId = props.id
 
     const getProduct = async () => {
         try {
