@@ -6,7 +6,7 @@ const ManageProductsPage = () => {
 
     const getProducts = async () => {
         try {
-            const response = await fetch('/api/v1/admin/all-products')
+            const response = await fetch('/api/v1/admin/products')
             const parsedResponse = await response.json()
             setInventoryList(parsedResponse.products.toSorted((a, b) => a.id - b.id))
         } catch (error) {

@@ -12,7 +12,7 @@ const EditProductPage = (props) => {
 
     const getProduct = async () => {
         try {
-            const response = await fetch(`/api/v1/admin/get-product/${productId}`)
+            const response = await fetch(`/api/v1/admin/products/${productId}`)
             const parsedResponse = await response.json()
             setProduct(parsedResponse.product)
             setVariations(parsedResponse.variations.toSorted((a, b) => a.id - b.id))
@@ -24,7 +24,7 @@ const EditProductPage = (props) => {
     const editProduct = async (payload, attribute) => {
         const editedProduct = {...product, [attribute]: payload}
         try {
-            const response = await fetch(`/api/v1/admin/edit-product/${productId}`, {
+            const response = await fetch(`/api/v1/admin/products/edit/${productId}`, {
                 method: "PATCH",
                 headers: new Headers({
                     "Content-Type": "application/json"
@@ -45,7 +45,7 @@ const EditProductPage = (props) => {
         const confirmDelete = confirm("Delete this product?")
         try {
             if (confirmDelete) {
-                await fetch(`/api/v1/admin/delete-product/${product.id}`, {
+                await fetch(`/api/v1/admin/products/delete/${product.id}`, {
                     method: "delete",
                     headers: new Headers({
                         "Content-Type": "application/json"
@@ -69,7 +69,7 @@ const EditProductPage = (props) => {
     })
 
     if (shouldRedirect) {
-        return <Redirect push to="/manage-products" />
+        return <Redirect push to="/admin/products" />
     }
 
     return (
