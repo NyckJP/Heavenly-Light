@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { hot } from "react-hot-loader/root"
+import AdminRoute from "./authentication/AdminRoute"
 
 import getCurrentUser from "../services/getCurrentUser"
 import "../assets/scss/main.scss"
@@ -55,9 +56,9 @@ const App = (props) => {
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/checkout" component={CheckoutPage} />
         <Route exact path="/return" render={() => <CheckoutReturnPage getBasketCount={getBasketCount} />} />
-        <Route exact path="/manage-products" component={ManageProductsPage} />
-        <Route exact path="/edit-product/:id" component={EditProductPage} />
-        <Route exact path="/create-product" component={CreateProductPage} />
+        <AdminRoute exact path="/admin/products" component={ManageProductsPage} user={currentUser} />
+        <AdminRoute exact path="/admin/products/new" component={CreateProductPage} user={currentUser} />
+        <AdminRoute exact path="/admin/products/edit/:id" component={EditProductPage} user={currentUser} />
       </Switch>
     </Router>
   )

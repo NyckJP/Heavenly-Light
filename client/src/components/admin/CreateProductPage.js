@@ -57,7 +57,7 @@ const CreateProductPage = () => {
                 for (const variation of variationsPayload) {
                     payloadBody.append("images", variation.image)
                 }
-                const response = await fetch("/api/v1/admin", {
+                const response = await fetch("/api/v1/admin/products/new", {
                     method: "POST",
                     headers: new Headers({
                         "Accept": "image/jpeg"
@@ -89,7 +89,7 @@ const CreateProductPage = () => {
     })
 
     if (shouldRedirect) {
-        return <Redirect push to="/manage-products" />
+        return <Redirect push to="/admin/products" />
     }
 
     return (

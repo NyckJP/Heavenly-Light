@@ -7,7 +7,7 @@ const InventoryTile = ({id, imageUrl, name, category, price}) => {
             <h2>{name}</h2>
             <h3>{category}</h3>
             <h3>${price}</h3>
-            <a href={`/edit-product/${id}`} className="button">Edit...</a>
+            <a href={`/admin/products/edit/${id}`} className="button">Edit...</a>
         </div>
     )
 }

@@ -9,7 +9,7 @@ const VariationTile = ({ variation, updateVariation }) => {
 
     const getSizes = async () => {
         try {
-            const response = await fetch(`/api/v1/admin/get-sizes/${variation.id}`)
+            const response = await fetch(`/api/v1/admin/sizes/${variation.id}`)
             const parsedResponse = await response.json()
             setSizes(parsedResponse.sizes.toSorted((a, b) => a.id - b.id))
         } catch (error) {
@@ -19,7 +19,7 @@ const VariationTile = ({ variation, updateVariation }) => {
 
     const editVariationColor = async (payload) => {
         try {
-            const response = await fetch(`/api/v1/admin/edit-variation/${variation.id}`, {
+            const response = await fetch(`/api/v1/admin/variations/edit/${variation.id}`, {
                 method: "PATCH",
                 headers: new Headers({
                     "Content-Type": "application/json"

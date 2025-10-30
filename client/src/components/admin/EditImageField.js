@@ -25,7 +25,7 @@ const EditImageField = (props) => {
         imageData.append("image", newImage.image)
 
         try {
-            const response = await fetch(`/api/v1/admin/edit-image/${props.variationId}`, {
+            const response = await fetch(`/api/v1/admin/variations/edit-image/${props.variationId}`, {
                 method: "PATCH",
                 headers: new Headers({
                     "Accept": "image/jpeg"

@@ -16,7 +16,7 @@ const EditStockField = (props) => {
 
     const saveEdit = async () => {
         try {
-            const response = await fetch(`/api/v1/admin/edit-stock/${props.id}`, {
+            const response = await fetch(`/api/v1/admin/sizes/edit-stock/${props.id}`, {
                 method: "PATCH",
                 headers: new Headers({
                     "Content-Type": "application/json"
