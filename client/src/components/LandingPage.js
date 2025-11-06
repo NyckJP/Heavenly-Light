@@ -5,8 +5,10 @@ const LandingPage = () => {
     return (
         <>
             <div className="hero-section">
-                <h1>Heavenly Light T-Shirt Printing</h1>
-                <h3>Check Out Our Designs <a href="#products"><i className="fa-solid fa-arrow-down" /></a></h3>
+                <div className="hero-text">
+                    <h1>Heavenly Light T-Shirt Printing</h1>
+                    <h3>Check Out Our Designs <a href="#products"><i className="fa-solid fa-arrow-down" /></a></h3>
+                </div>
             </div>
             <ProductList />
         </>

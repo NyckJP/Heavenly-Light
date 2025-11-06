@@ -1,9 +1,27 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import SignOutButton from "../authentication/SignOutButton"
 
 const TopBar = ({ user, basketCount }) => {
   const [renderNav, setRenderNav] = useState(false)
+  const [atTop, setAtTop] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setAtTop(window.scrollY === 0)
+    }
+    window.addEventListener("scroll", handleScroll)
+    handleScroll()
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
+
+  let topBarStyling = "top-bar sticky"
+  if (atTop) {
+    topBarStyling = "top-bar sticky at-top"
+  }
 
   let renderBasketCount
   if(basketCount > 0) {
@@ -107,7 +125,7 @@ const TopBar = ({ user, basketCount }) => {
   return (
     <>
       {dropDownNav}
-      <div className="top-bar sticky">
+      <div className={topBarStyling}>
         <div className="hide-on-large-screens">
           <i className="fa-solid fa-bars menu-bars" onClick={() => {setRenderNav(!renderNav)}}/>
         </div>

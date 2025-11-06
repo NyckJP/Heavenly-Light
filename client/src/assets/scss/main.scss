@@ -30,9 +30,11 @@ body, h1, h3, h6, p {
   background-size: cover;
   //choose between top-center or top-right -290px in a media query
   background-position: top center;
-  h1, h3 {
-    margin-left: 5rem;
-  }
+}
+
+.hero-text {
+  width: 75rem;
+  margin: auto;
 }
 
 .content {
@@ -54,8 +56,17 @@ a:hover {
 }
 
 .top-bar {
-  //background: none;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, .1);
+  transition: all .3s;
+}
+
+.top-bar ul {
+  background: none;
+}
+
+.at-top {
+  background: none;
+  box-shadow: none;
 }
 
 .drop-down-menu {
