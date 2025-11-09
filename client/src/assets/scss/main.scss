@@ -12,6 +12,8 @@
 :root {
   -moz-tab-size: 4;
   tab-size: 4;
+  --base-font-size: 14px;
+  --font-size-interval: 1.618;
 }
 
 html {
@@ -22,67 +24,8 @@ body, h1, h3, h6, p {
   font-family: Lato, regular;
 }
 
-.hero-section {
-  padding-top: 400px;
-  padding-bottom: 400px;
-  background-image: url(../images/nevada-sun.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  //choose between top-center or top-right -290px in a media query
-  background-position: top center;
-}
-
-.hero-text {
-  width: 75rem;
-  margin: auto;
-}
-
-.content {
-  padding: 16px;
-}
-
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-a {
-  color: black;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.top-bar {
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, .1);
-  transition: all .3s;
-}
-
-.top-bar ul {
-  background: none;
-}
-
-.at-top {
-  background: none;
-  box-shadow: none;
-}
-
-.drop-down-menu {
-  margin-top: 55px;
-  background-color: white;
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, .1);
-}
-
-.menu-links {
-  display: flex;
-  justify-content: space-around;
-}
-
-.menu-bars {
-  padding: .7rem 1rem;
-}
+@import "./TopBar.scss";
+@import "./LandingPage.scss";
 
 .products {
   padding-top: 100px;
@@ -236,20 +179,6 @@ input[type="radio"]:checked + label {
 
 .empty-message {
   text-align: center;
-}
-
-.basket-count-bubble {
-  position: absolute;
-  background-color: orange;
-  height: 1rem;
-  width: 1rem;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: .7rem;
-  bottom: .1rem;
-  right: .5rem;
 }
 
 .checkout {
@@ -406,22 +335,9 @@ input[type="radio"]:checked + label {
   height: 300px;
 }
 
-@media (min-width: 500px){
-  .hide-on-large-screens{
-    display: none;
-  }
-}
-
 @media (max-width: 499px) {
   .nav-link {
     display: none;
-  }
-  
-  .hero-section {
-    h1, h3{
-      margin-left: 0rem;
-    }
-    text-align: center;
   }
 }
 

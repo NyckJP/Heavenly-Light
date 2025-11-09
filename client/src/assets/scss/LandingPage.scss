@@ -1,0 +1,35 @@
+.hero-section {
+  height: 100vh;
+  background-image: url(../images/nevada-sun.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  //choose between top-center or top-right -290px in a media query
+  background-position: top center;
+}
+
+.hero-text {
+  h1 {
+    font-size: calc(var(--base-font-size) * (var(--font-size-interval) * 3));
+  }
+  h3 {
+    font-size: calc(var(--base-font-size) * (var(--font-size-interval) * 2));
+    display: inline-block;
+    transition: all .3s;
+    transform-origin: top left;
+  }
+  h3:hover {
+    transform: scale(1.15);
+  }
+  width: 75rem;
+  margin: auto;
+  padding-top: 300px;
+}
+
+@media (max-width: 499px) {
+    .hero-section {
+        h1, h3{
+            margin-left: 0rem;
+        }
+        text-align: center;
+    }
+}

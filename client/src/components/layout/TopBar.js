@@ -52,7 +52,7 @@ const TopBar = ({ user, basketCount }) => {
     </li>,
     <li key="Basket">
       <Link to="/basket">
-        <i className="fa-solid fa-basket-shopping" />
+        <i className="fa-solid fa-basket-shopping basket-button" />
         {renderBasketCount}
       </Link>
     </li>,
@@ -84,7 +84,7 @@ const TopBar = ({ user, basketCount }) => {
     </li>,
     <li key="Basket">
       <Link to="/basket">
-        <i className="fa-solid fa-basket-shopping" />
+        <i className="fa-solid fa-basket-shopping basket-button" />
         {renderBasketCount}
       </Link>
     </li>,
