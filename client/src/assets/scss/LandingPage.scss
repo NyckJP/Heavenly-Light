@@ -9,10 +9,10 @@
 
 .hero-text {
   h1 {
-    font-size: calc(var(--base-font-size) * (var(--font-size-interval) * 3));
+    font-size: var(--header-one)
   }
   h3 {
-    font-size: calc(var(--base-font-size) * (var(--font-size-interval) * 2));
+    font-size: var(--header-two);
     display: inline-block;
     transition: all .3s;
     transform-origin: top left;
@@ -20,16 +20,23 @@
   h3:hover {
     transform: scale(1.15);
   }
-  width: 75rem;
+  max-width: 90rem;
   margin: auto;
-  padding-top: 300px;
+  padding-top: 38vh;
+}
+
+.center-align {
+  text-align: center;
+  h3 {
+    transform-origin: center;
+  }
 }
 
 @media (max-width: 499px) {
-    .hero-section {
-        h1, h3{
-            margin-left: 0rem;
-        }
-        text-align: center;
+  .hero-section {
+    h1, h3{
+      margin-left: 0rem;
     }
+    text-align: center;
+  }
 }

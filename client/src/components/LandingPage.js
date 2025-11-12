@@ -5,9 +5,11 @@ const LandingPage = () => {
     return (
         <>
             <div className="hero-section">
-                <div className="hero-text">
+                <div className="hero-text center-align">
                     <h1>Heavenly Light T-Shirt Printing</h1>
-                    <a href="#products"><h3>Check Out Our Designs <i className="fa-solid fa-arrow-down" /></h3></a>
+                    <a href="#products">
+                        <h3>Check Out Our Designs <i className="fa-solid fa-arrow-down" /></h3>
+                    </a>
                 </div>
             </div>
             <ProductList />

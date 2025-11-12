@@ -12,8 +12,12 @@
 :root {
   -moz-tab-size: 4;
   tab-size: 4;
-  --base-font-size: 14px;
+  --base-font-size: clamp(6px, .9vw, 16px);
   --font-size-interval: 1.618;
+  --header-one: calc(var(--base-font-size) * (var(--font-size-interval) * 4));
+  --header-two: calc(var(--base-font-size) * (var(--font-size-interval) * 3));
+  --header-three: calc(var(--base-font-size) * (var(--font-size-interval) * 2));
+  --header-four: calc(var(--base-font-size) * (var(--font-size-interval) * 1));
 }
 
 html {

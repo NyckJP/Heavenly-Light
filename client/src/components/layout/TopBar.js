@@ -19,8 +19,10 @@ const TopBar = ({ user, basketCount }) => {
   }, [])
 
   let topBarStyling = "top-bar sticky"
+  let dropDownStyling = "drop-down-menu hide-on-large-screens sticky"
   if (atTop) {
     topBarStyling = "top-bar sticky at-top"
+    dropDownStyling = "drop-down-menu hide-on-large-screens sticky at-top"
   }
 
   let renderBasketCount
@@ -95,9 +97,9 @@ const TopBar = ({ user, basketCount }) => {
 
   const dropDownMenuItems = [
     <li key="products">
-      <Link to="/#products">
+      <a href="/#products">
         Products
-      </Link>
+      </a>
     </li>,
     <li key="about">
       <Link to="/">
@@ -114,7 +116,7 @@ const TopBar = ({ user, basketCount }) => {
   let dropDownNav
   if(renderNav) {
     dropDownNav = (
-      <div className="drop-down-menu hide-on-large-screens sticky">
+      <div className={dropDownStyling}>
         <ul className="menu menu-links">
           {dropDownMenuItems}
         </ul>
