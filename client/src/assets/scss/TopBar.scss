@@ -16,6 +16,15 @@
   background: none;
 }
 
+.menu-text {
+  a {
+    padding: 0;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+}
+
 .drop-down-menu {
   margin-top: 53px;
   background-color: white;

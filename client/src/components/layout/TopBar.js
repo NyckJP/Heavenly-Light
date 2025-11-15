@@ -18,13 +18,6 @@ const TopBar = ({ user, basketCount }) => {
     }
   }, [])
 
-  let topBarStyling = "top-bar sticky"
-  let dropDownStyling = "drop-down-menu hide-on-large-screens sticky"
-  if (atTop) {
-    topBarStyling = "top-bar sticky at-top"
-    dropDownStyling = "drop-down-menu hide-on-large-screens sticky at-top"
-  }
-
   let renderBasketCount
   if(basketCount > 0) {
     renderBasketCount = (
@@ -113,6 +106,13 @@ const TopBar = ({ user, basketCount }) => {
     </li>
   ]
 
+  let topBarStyling = "top-bar sticky"
+  let dropDownStyling = "drop-down-menu hide-on-large-screens sticky"
+  if (atTop) {
+    topBarStyling = "top-bar sticky at-top"
+    dropDownStyling = "drop-down-menu hide-on-large-screens sticky at-top"
+  }
+
   let dropDownNav
   if(renderNav) {
     dropDownNav = (
@@ -132,7 +132,9 @@ const TopBar = ({ user, basketCount }) => {
           <i className="fa-solid fa-bars menu-bars" onClick={() => {setRenderNav(!renderNav)}}/>
         </div>
         <ul className="menu">
-          <li className="menu-text">Heavenly Light</li>
+          <li className="menu-text">
+            <a href="/">Heavenly Light</a>
+          </li>
         </ul>
          <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
       </div>
