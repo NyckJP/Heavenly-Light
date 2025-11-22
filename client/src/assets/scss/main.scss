@@ -13,6 +13,7 @@
   -moz-tab-size: 4;
   tab-size: 4;
   --base-font-size: clamp(6px, .9vw, 16px);
+  --small-base-font-size: 14px;
   --font-size-interval: 1.618;
   --header-one: calc(var(--base-font-size) * (var(--font-size-interval) * 4));
   --header-two: calc(var(--base-font-size) * (var(--font-size-interval) * 3));
@@ -30,69 +31,7 @@ body, h1, h3, h6, p {
 
 @import "./TopBar.scss";
 @import "./LandingPage.scss";
-
-.products {
-  padding-top: 100px;
-  padding-bottom: 400px;
-}
-
-.products-header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  a {
-    align-self: end;
-    padding-bottom: .6rem;
-  }
-}
-
-.product-tile {
-  padding: 5px;
-  text-align: center;
-  cursor: pointer;
-  img {
-    border-radius: 1rem;
-  }
-  transition: all .3s;
-  input {
-    max-width: 100%;
-  }
-}
-
-.product-tile:hover {
-  transform: scale(1.15);
-}
-
-.category-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 100%;
-}
-
-hr {
-  margin-top: 0;
-}
-
-.category-button {
-  text-align: center;
-  margin: 0;
-  padding: 0 .55rem;
-  border: solid black;
-  border-radius: .5rem;
-  background-color: white;
-  color: black;
-  transition: all .3s;
-}
-
-input {
-  display: none;
-}
-
-input[type="radio"]:checked + label {
-  background-color: black;
-  color: white;
-}
+@import "./ProductList.scss";
 
 .show-page {
   display: flex;
@@ -342,26 +281,6 @@ input[type="radio"]:checked + label {
 @media (max-width: 499px) {
   .nav-link {
     display: none;
-  }
-}
-
-@media (max-width: 723px) {
-  .products-header {
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1.25rem;
-    max-width: 100%;
-  }
-  
-  .category-button {
-    border: none;
-  }
-}
-
-@media (min-width: 723px) {
-  .category-button {
-    min-width: 5rem;
-    margin-right: 0;
   }
 }
 
