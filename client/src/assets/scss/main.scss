@@ -18,7 +18,7 @@
   --header-one: calc(var(--base-font-size) * (var(--font-size-interval) * 4));
   --header-two: calc(var(--base-font-size) * (var(--font-size-interval) * 3));
   --header-three: calc(var(--base-font-size) * (var(--font-size-interval) * 2));
-  --header-four: calc(var(--base-font-size) * (var(--font-size-interval) * 1));
+  --header-four: calc(var(--small-base-font-size) * (var(--font-size-interval) * 1));
 }
 
 html {

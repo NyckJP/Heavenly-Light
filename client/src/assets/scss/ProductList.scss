@@ -30,6 +30,12 @@
   input {
     max-width: 100%;
   }
+  h3 {
+    font-size: var(--header-four);
+  }
+  h6 {
+    font-size: var(--small-base-font-size);
+  }
 }
 
 .product-tile:hover {
