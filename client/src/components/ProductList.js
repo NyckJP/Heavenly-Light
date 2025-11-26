@@ -46,14 +46,14 @@ const ProductList = () => {
             <div className="products-header">
                 <h1>{category}</h1>
                 <div className="category-buttons">
-                    <input type="radio" id="All" name="filter" onChange={() => setCategory("All Products")}/>
+                    <input type="radio" id="All" name="filter" checked={category === "All Products"} onChange={() => setCategory("All Products")} />
                     <label htmlFor="All" className="category-button">All</label>
 
-                    <input type="radio" id="Shirts" name="filter" onChange={() => setCategory("Men's")}/>
-                    <label htmlFor="Shirts" className="category-button">Mens</label>
+                    <input type="radio" id="Men's" name="filter" checked={category === "Men's"} onChange={() => setCategory("Men's")} />
+                    <label htmlFor="Men's" className="category-button">Mens</label>
 
-                    <input type="radio" id="Mugs" name="filter" onChange={() => setCategory("Women's")}/>
-                    <label htmlFor="Mugs" className="category-button">Womens</label>
+                    <input type="radio" id="Women's" name="filter" checked={category === "Women's"} onChange={() => setCategory("Women's")} />
+                    <label htmlFor="Women's" className="category-button">Womens</label>
                 </div>
             </div>
             <hr />
