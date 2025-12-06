@@ -1,0 +1,28 @@
+.footer {
+    margin-top: 2rem;
+    box-shadow: 3px -3px 5px rgba(0, 0, 0, .1);
+}
+
+.footer-content {
+    max-width: 75rem;
+    margin: auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    section {
+        text-align: end;
+    }
+    p {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 800px) {
+    .footer-content {
+        flex-direction: column;
+        p{
+            text-align: center;
+        }
+    }
+}

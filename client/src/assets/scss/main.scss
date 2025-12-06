@@ -32,6 +32,12 @@ body, h1, h3, h6, p {
 @import "./TopBar.scss";
 @import "./LandingPage.scss";
 @import "./ProductList.scss";
+@import "./AboutPage.scss";
+@import "./Footer.scss";
+
+li {
+  list-style: none;
+}
 
 .show-page {
   display: flex;
