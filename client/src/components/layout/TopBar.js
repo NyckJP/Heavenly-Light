@@ -36,7 +36,7 @@ const TopBar = ({ user, basketCount }) => {
       </a>
     </li>,
     <li className="nav-link" key="about">
-      <Link to="/">
+      <Link to="/about">
         About
       </Link>
     </li>,
@@ -68,7 +68,7 @@ const TopBar = ({ user, basketCount }) => {
       </a>
     </li>,
     <li className="nav-link" key="about">
-      <Link to="/">
+      <Link to="/about">
         About
       </Link>
     </li>,
@@ -95,9 +95,9 @@ const TopBar = ({ user, basketCount }) => {
       </a>
     </li>,
     <li key="about">
-      <Link to="/">
+      <a href="/about">
         About
-      </Link>
+      </a>
     </li>,
     <li key="contact">
       <Link to="/">

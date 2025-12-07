@@ -8,6 +8,7 @@ const clientRoutes = [
   "/user-sessions/new", 
   "/users/new", 
   "/products/:id", 
+  "/about",
   "/basket", 
   "/checkout", 
   "/return", 
